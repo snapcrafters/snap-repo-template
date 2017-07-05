@@ -52,11 +52,11 @@ upstream so [Project] can authoritatively publish future releases.
   - [ ] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [ ] Submit a pull request or patch upstream that adds snap install documentation - [link]()
   - [ ] Submit a pull request or patch upstream that adds the `snapcraft.yaml` and any required assets/launchers - [link]()
+  - [ ] Add upstream contact information to the `README.md`  
   - If upstream accept the PR:
     - [ ] Request upstream create a Snap store account
-    - [ ] Add upstream contact information to the `README.md`
     - [ ] Contact the Snap Advocacy team to request the snap be transferred to upstream
- - [ ] Ask the Snap Advocacy team to celebrate the snap - [link]()
+  - [ ] Ask the Snap Advocacy team to celebrate the snap - [link]()
 
 If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft.io).
 
