@@ -15,7 +15,6 @@ distributions.</p>
 
 ## Install
 
-    sudo apt install snapd-xdg-open
     sudo snap install my-snap-name
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
