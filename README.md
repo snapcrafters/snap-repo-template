@@ -15,7 +15,7 @@ distributions.</p>
 
 ## Install
 
-    sudo snap install my-snap-name
+    sudo snap install tavern
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
