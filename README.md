@@ -30,14 +30,14 @@ distributions.</p>
 Snapcrafters ([join us](https://forum.snapcraft.io/t/join-snapcrafters/1325)) 
 are working to land snap install documentation and
 the [snapcraft.yaml](https://github.com/snapcrafters/fork-and-rename-me/blob/master/snap/snapcraft.yaml)
-upstream so [Project] can authoritatively publish future releases.
+upstream so Tavern can authoritatively publish future releases.
 
   - [x] Fork the [Snapcrafters template](https://github.com/snapcrafters/fork-and-rename-me) repository to your own GitHub account.
     - If you have already forked the Snapcrafter template to your account and want to create another snap, you'll need to use GitHub's [Import repository](https://github.com/new/import) feature because you can only fork a repository once.
   - [x] Rename the forked Snapcrafters template repository
   - [x] Update logos and references to `[Project]` and `[my-snap-name]`
-  - [ ] Create a snap that runs in `devmode`
-  - [ ] Register the snap in the store, **using the preferred upstream name**
+  - [x] Create a snap that runs in `devmode`
+  - [x] Register the snap in the store, **using the preferred upstream name** **tavern-nissaar**
   - [ ] Add a screenshot to this `README.md`
   - [ ] Publish the `devmode` snap in the Snap store edge channel
   - [ ] Add install instructions to this `README.md`
@@ -64,15 +64,15 @@ If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft
 <!-- 
 ## The Snapcrafters
 
-| [![Your Name](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/yourname/) |
+| [!Nissaar(http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/Nissaar/) |
 | :---: |
-| [Your Name](https://github.com/yourname/) |
+| Nissaar(https://github.com/Nissaar/) |
 --> 
 
 <!-- Uncomment and modify this when you have upstream contacts
 ## Upstream
 
-| [![Upstream Name](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431?s=128)](https://github.com/upstreamname) |
+| [![tavern(http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431?s=128)](https://github.com/tavern) |
 | :---: |
-| [Upstream Name](https://github.com/upstreamname) |
+| tavern(https://github.com/tavern) |
 -->
