@@ -1,26 +1,26 @@
 <h1 align="center">
   <img src="https://avatars1.githubusercontent.com/u/29598503?v=3&s=256" alt="Project">
   <br />
-  The Endorser
+  Pyradio
 </h1>
 
-<p align="center"><b>This is the snap for The Endorser</b>, <i>"Single-line elevator pitch for your amazing snap"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
+<p align="center"><b>This is the snap for Pyradio</b>, <i>"Single-line elevator pitch for your amazing snap"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
 distributions.</p>
 
 <!-- Uncomment and modify this when you are provided a build status badge
 <p align="center">
-<a href="https://build.snapcraft.io/user/snapcrafters/the-endorser"><img src="https://build.snapcraft.io/badge/snapcrafters/fork-and-rename-me.svg" alt="Snap Status"></a>
+<a href="https://build.snapcraft.io/user/snapcrafters/pyradio"><img src="https://build.snapcraft.io/badge/snapcrafters/fork-and-rename-me.svg" alt="Snap Status"></a>
 </p>
 -->
 
 ## Install
 
-    sudo snap install the-endorser
+    sudo snap install pyradio
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
 <!-- Uncomment and modify this when you have a screenshot
-![tavern](screenshot.png?raw=true "the-endorser")
+![pyradio](screenshot.png?raw=true "the-endorser")
 -->
 
 <p align="center">Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.png" align="top" width="24" /> with :gift_heart: by Snapcrafters</p>
@@ -37,7 +37,7 @@ upstream so Tavern can authoritatively publish future releases.
   - [x] Rename the forked Snapcrafters template repository
   - [x] Update logos and references to `[Project]` and `[my-snap-name]`
   - [x] Create a snap that runs in `devmode`
-  - [x] Register the snap in the store, **using the preferred upstream name** **the-endorser**
+  - [x] Register the snap in the store, **using the preferred upstream name** **pyradio**
   - [ ] Add a screenshot to this `README.md`
   - [ ] Publish the `devmode` snap in the Snap store edge channel
   - [ ] Add install instructions to this `README.md`
