@@ -1,15 +1,13 @@
-name: my-snap-name # you probably want to 'snapcraft register <name>'
-version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+name: guessit1
+version: '2.1.4'
+summary: python library extractor
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+    GuessIt is a python library that extracts as much information as possible from a video filename.
+grade: stable
 
-confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement:strict
 
 parts:
   my-part:
     # See 'snapcraft plugins'
-    plugin: nil
+    plugin: python
