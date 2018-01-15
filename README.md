@@ -15,7 +15,7 @@ distributions.</p>
 
 ## Install
 
-    sudo snap install pyradio --strict
+    sudo snap install pyradio
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
