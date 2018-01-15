@@ -48,7 +48,7 @@ upstream so [Project] can authoritatively publish future releases.
   - [ ] Add the provided Snapcraft build badge to this `README.md`
   - [x] Publish the snap in the Snap store stable channel
   - [x] Update the install instructions in this `README.md`
-  - [x Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
+  - [x] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [ ] Submit a pull request or patch upstream that adds snap install documentation - [link]()
   - [ ] Submit a pull request or patch upstream that adds the `snapcraft.yaml` and any required assets/launchers - [link]()
   - [ ] Add upstream contact information to the `README.md`  
