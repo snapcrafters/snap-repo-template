@@ -43,12 +43,12 @@ upstream so [Project] can authoritatively publish future releases.
   - [x] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
   - [x] Publish the confined snap in the Snap store beta channel
   - [x] Update the install instructions in this `README.md`
-  - [x] Post a call for testing on the [Snapcraft Forum](https://forum.snapcraft.io) - ://forum.snapcraft.io/t/join-snapcrafters/1325/13]
+  - [x] Post a call for testing on the [Snapcraft Forum](https://forum.snapcraft.io) - ://forum.snapcraft.io/t/join-snapcrafters/1325/13
   - [x] Ask a [Snapcrafters admin](https://github.com/orgs/snapcrafters/people?query=%20role%3Aowner) to fork your repo into github.com/snapcrafters, transfer the snap name from you to snapcrafters, and configure the repo for automatic publishing into edge on commit
   - [ ] Add the provided Snapcraft build badge to this `README.md`
   - [x] Publish the snap in the Snap store stable channel
   - [x] Update the install instructions in this `README.md`
-  - [x] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [://forum.snapcraft.io/t/join-snapcrafters/1325/13]
+  - [x] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - ://forum.snapcraft.io/t/join-snapcrafters/1325/13
   - [ ] Submit a pull request or patch upstream that adds snap install documentation - [link]()
   - [ ] Submit a pull request or patch upstream that adds the `snapcraft.yaml` and any required assets/launchers - [link]()
   - [ ] Add upstream contact information to the `README.md`  
