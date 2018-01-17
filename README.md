@@ -14,7 +14,7 @@
 
 ## Install
 
-    pip install guessit
+    sudo snap install guessita
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
