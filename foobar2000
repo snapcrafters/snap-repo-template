@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+#
+# Author:
+#   mmtrt [Taqi Raza]
+#
+# Description:
+#   foobar2000 wrapper for snap
+#
+# Date: Jan 24 2018
+#
+
+ARCH="i386-linux-gnu"
+
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+export WINEVERPATH=$SNAP
+export PATH=$SNAP/bin:$SNAP/usr:bin:$PATH 
+export WINESERVER=$SNAP/bin/wineserver
+export WINELOADER=$SNAP/bin/wine
+export winepath=$SNAP/bin/winepath
+export WINEDLLPATH=$SNAP/lib/wine/fakedlls
+export WINEPREFIX=$SNAP_USER_COMMON/.wine
+export WINEDLLOVERRIDES="mscoree,mshtml="
+export WINEDEBUG=-all
+export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/$ARCH:$SNAP/usr/lib:$SNAP/usr/lib/$ARCH:$SNAP/usr/lib/$ARCH/pulseaudio:$LD_LIBRARY_PATH"
+
+export HOME=$SNAP_USER_COMMON
+export XDG_DATA_HOME=$SNAP_USER_COMMON/usr/share
+
+# fonts
+export FONTCONFIG_PATH=$SNAP/etc/fonts/config.d
+export FONTCONFIG_FILE=$SNAP/etc/fonts/fonts.conf
+
+# foobar2000 env
+progName=foobar2000
+progRealPath=$SNAP/usr/share/$progName
+progHome=$SNAP_USER_DATA/$progName
+progBin=$progName.exe
+progUiFix=$progHome/configuration/foo_ui_std.dll.cfg
+
+if [ ! -d $progHome ];then
+mkdir -p $progHome
+# Delete broken symlinks
+find -L "$progHome" -type l -delete
+# Update existing symlinks, add new symlinks
+cp -urs "$progRealPath/"* "$progHome"
+fi
+
+# fix ui glitch - workaround bug ui not showing of foobar2000 on wine.
+if [ -f $progUiFix ]; then
+rm "$progUiFix"
+fi
+
+# Stop WINE from updating $WINEPREFIX automatically 
+if [ -d $WINEPREFIX ]; then
+chkstmp=$(cat $WINEPREFIX/.update-timestamp | grep disable | wc -l)
+    if [ $chkstmp -eq 0 ]; then
+        echo "disable" > "$WINEPREFIX/.update-timestamp"
+    fi
+fi
+
+# Switches: use -something instead of /something to avoid confusion with Unix paths
+# Also convert Unix paths to Windows paths.
+declare -a args
+
+for arg; do
+    if [[ "${arg:0:1}" = "-" ]]; then
+        args+=("${arg/#-//}")
+    else
+        args+=("$($winepath -w "$arg")")
+    fi
+done
+
+if [ -z "$1" ] ; then
+  wine "$progHome/$progBin"
+else
+  wine start /unix "$progHome/$progBin" "${args[@]}"
+fi
