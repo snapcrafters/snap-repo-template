@@ -1,23 +1,36 @@
 name: foobar2000
 version: 1.3.17
-summary: An experimental foobar2000 music player (wined) snap
+summary: foobar2000 is an advanced freeware audio player.
 description: |
-    foobar2000 player wine 3.x as an experimental snap
-    .
+    Features
+    *Supported audio formats are MP3, MP4, AAC, CD Audio, WMA, Vorbis, Opus, FLAC, WavPack, WAV, AIFF, Musepack, Speex, AU, SND... and more with additional components.
+    *Gapless playback.
+    *Easily customizable user interface layout.
+    *Advanced tagging capabilities.
+    *Support for ripping Audio CDs as well as transcoding all supported audio formats using the Converter component.
+    *Full ReplayGain support.
+    *Customizable keyboard shortcuts.
+    *Open component architecture allowing third-party developers to extend functionality of the player.
 
 confinement: devmode
 grade: devel
 architectures: [amd64]
-icon: foobar2000.png
+icon: snap/gui/icon.png
 
 apps:
   foobar2000:
     command: foobar2000
-    desktop: usr/share/applications/foobar2000.desktop
+    desktop: ../snap/gui/foobar2000.desktop
     plugs: [ x11, unity7, home, pulseaudio, hardware-observe ]
 
 parts:
+  enable-i386:
+    plugin: nil
+    prepare: |
+      dpkg --add-architecture i386
+      apt update
   wine-3p1:
+    after: [enable-i386]
     plugin: dump
     source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-stable-i386_3.0.0~xenial_i386.deb
     source-type: deb
@@ -29,27 +42,28 @@ parts:
       ws=opt/wine-stable
       cp -r $ws/* $spi/ && cp -r $spi/share $spi/usr/ && rm -r $spi/opt $spi/share $mans $lins $docs
     stage-packages:
-      - libasound2-plugins
-      - libfreetype6
-      - libpng12-0
-      - libncurses5
-      - libgnutls30
-      - libxext6
-      - libudev1
-      - libpulse0
-      - libwrap0
-      - libsystemd0
-      - libasyncns0
-      - libselinux1
-      - liblzma5
-      - libgcrypt20
-      - libgpg-error0
-      - libc6
-      - libpcre3
-      - libmpg123-0
-      - libgstreamer-plugins-base1.0-0
-      - zlib1g
-      - fontconfig-config
+    - on amd64:
+      - libasound2-plugins:i386
+      - libfreetype6:i386
+      - libpng12-0:i386
+      - libncurses5:i386
+      - libgnutls30:i386
+      - libxext6:i386
+      - libudev1:i386
+      - libpulse0:i386
+      - libwrap0:i386
+      - libsystemd0:i386
+      - libasyncns0:i386
+      - libselinux1:i386
+      - liblzma5:i386
+      - libgcrypt20:i386
+      - libgpg-error0:i386
+      - libc6:i386
+      - libpcre3:i386
+      - libmpg123-0:i386
+      - libgstreamer-plugins-base1.0-0:i386
+      - zlib1g:i386
+      - fontconfig-config:i386
 
   wine-3p2:
     plugin: dump
@@ -64,7 +78,6 @@ parts:
 
   foobar2000:
     plugin: dump
-    source: .
+    source: ./scripts
     prepare: ./dl_f2k
-    build-packages: [wget, p7zip]
 

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#
+# Author:
+#   mmtrt [Taqi Raza]
+#
+# Description:
+#   download and prepare foobar2000 for snap
+#
+# Date: Jan 24 2018
+#
+
+dlf2k () {
+    wget https://www.foobar2000.org/download -nH --cut-dirs=3 -r -l 2 -A exe -R '*beta*.exe' &> /dev/null
+}
+
+dli7z16x64 () {
+    for dldebs in https://launchpad.net/ubuntu/+source/p7zip/16.02+dfsg-4/+build/13091326/+files/p7zip_16.02+dfsg-4_amd64.deb https://launchpad.net/ubuntu/+source/p7zip/16.02+dfsg-4/+build/13091326/+files/p7zip-full_16.02+dfsg-4_amd64.deb 
+    do
+    wget $dldebs &> /dev/null
+    done
+
+    for pkgdebins in p7zip_16.02+dfsg-4_amd64.deb p7zip-full_16.02+dfsg-4_amd64.deb
+    do
+    sudo apt install ./$pkgdebins -y &> /dev/null
+    rm $pkgdebins
+    done
+}
+
+mkf2k () {
+    7z x "foobar2000_v*.exe" -x'!$PLUGINSDIR' -x'!$R0' -x'!icons' -x'!foobar2000 Shell Associations Updater.exe' -x'!uninstall.exe' -o"usr/share/foobar2000" &> /dev/null
+    touch usr/share/foobar2000/portable_mode_enabled
+    find "usr" -type d -execdir chmod 755 {} +
+}
+
+mkall () {
+    dlf2k
+    dli7z16x64
+    mkf2k
+}
+
+mkall
+mkdir bin && cp ../../../scripts/foobar2000 bin && mkdir -p usr/share/applications && cp ../../../snap/gui/foobar2000.desktop usr/share/applications
+rm foobar2000*.exe LICENSE.md README.md

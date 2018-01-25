@@ -1,10 +1,10 @@
 <h1 align="center">
-  <img src="https://avatars1.githubusercontent.com/u/29598503?v=3&s=256" alt="Project">
+  <img src="https://github.com/mmtrt/foobar2000/blob/master/snap/gui/icon.png?raw=true" alt="Project">
   <br />
-  [Project]
+  foobar2000
 </h1>
 
-<p align="center"><b>This is the snap for [Project]</b>, <i>"Single-line elevator pitch for your amazing snap"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
+<p align="center"><b>This is the snap for foobar2000</b>, <i>"foobar2000 is an advanced freeware audio player [wine-i386 packed snap]"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
 distributions.</p>
 
 <!-- Uncomment and modify this when you are provided a build status badge
@@ -34,13 +34,13 @@ upstream so [Project] can authoritatively publish future releases.
 
   - [x] Fork the [Snapcrafters template](https://github.com/snapcrafters/fork-and-rename-me) repository to your own GitHub account.
     - If you have already forked the Snapcrafter template to your account and want to create another snap, you'll need to use GitHub's [Import repository](https://github.com/new/import) feature because you can only fork a repository once.
-  - [ ] Rename the forked Snapcrafters template repository
-  - [ ] Update the description of the repository
+  - [x] Rename the forked Snapcrafters template repository
+  - [x] Update the description of the repository
   - [ ] Update logos and references to `[Project]` and `[my-snap-name]`
-  - [ ] Create a snap that runs in `devmode`
-  - [ ] Register the snap in the store, **using the preferred upstream name**
+  - [x] Create a snap that runs in `devmode`
+  - [x] Register the snap in the store, **using the preferred upstream name**
   - [ ] Add a screenshot to this `README.md`
-  - [ ] Publish the `devmode` snap in the Snap store edge channel
+  - [x] Publish the `devmode` snap in the Snap store edge channel
   - [ ] Add install instructions to this `README.md`
   - [ ] Update snap store metadata, icons and screenshots
   - [ ] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
