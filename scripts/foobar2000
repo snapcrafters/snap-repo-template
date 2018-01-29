@@ -41,11 +41,12 @@ progUiFix=$progHome/configuration/foo_ui_std.dll.cfg
 
 if [ ! -d $progHome ];then
 mkdir -p $progHome
-# Delete broken symlinks
-find -L "$progHome" -type l -delete
-# Update existing symlinks, add new symlinks
-cp -urs "$progRealPath/"* "$progHome"
 fi
+
+# Delete broken symlinks
+find -L "$progHome" -type l -delete &> /dev/null
+# Update existing symlinks, add new symlinks
+cp -urs "$progRealPath/"* "$progHome" &> /dev/null
 
 # fix ui glitch - workaround bug ui not showing of foobar2000 on wine.
 if [ -f $progUiFix ]; then
