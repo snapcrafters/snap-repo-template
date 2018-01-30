@@ -38,6 +38,7 @@ progRealPath=$SNAP/usr/share/$progName
 progHome=$SNAP_USER_DATA/$progName
 progBin=$progName.exe
 progUiFix=$progHome/configuration/foo_ui_std.dll.cfg
+progReg=$progHome/xp.reg
 
 if [ ! -d $progHome ];then
 mkdir -p $progHome
@@ -51,6 +52,21 @@ cp -urs "$progRealPath/"* "$progHome" &> /dev/null
 # fix ui glitch - workaround bug ui not showing of foobar2000 on wine.
 if [ -f $progUiFix ]; then
 rm "$progUiFix"
+fi
+
+if [ ! -d $WINEPREFIX ]; then
+cat > $progReg <<'EOF'
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion]
+"CSDVersion"="Service Pack 3"
+"CurrentBuildNumber"="2600"
+"CurrentVersion"="5.1"
+"ProductName"="Microsoft Windows XP"
+EOF
+wine start regedit $progReg
+sleep 1
+rm $progReg &> /dev/null
 fi
 
 # Stop WINE from updating $WINEPREFIX automatically 
