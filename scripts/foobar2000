@@ -63,6 +63,9 @@ Windows Registry Editor Version 5.00
 "CurrentBuildNumber"="2600"
 "CurrentVersion"="5.1"
 "ProductName"="Microsoft Windows XP"
+
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Windows]
+"CSDVersion"=dword:00000300
 EOF
 wine start regedit $progReg
 sleep 1
