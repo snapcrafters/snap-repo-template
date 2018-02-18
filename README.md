@@ -16,9 +16,9 @@ distributions.</p>
 ## Install
 
     sudo snap install foobar2000
-    sudo snap connect foobar2000:hardware-observe core:hardware-observe
-    sudo snap connect foobar2000:process-control core:process-control
-    sudo snap connect foobar2000:cups-control core:cups-control
+    sudo snap connect foobar2000:hardware-observe
+    sudo snap connect foobar2000:process-control
+    sudo snap connect foobar2000:cups-control
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
