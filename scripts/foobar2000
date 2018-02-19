@@ -48,6 +48,8 @@ rm "$progUiFix"
 fi
 
 if [ ! -d $WINEPREFIX ]; then
+mkdir -p $WINEPREFIX/drive_c/windows/Fonts
+find /usr/share/fonts/ -type f -name "*.ttf" -exec ln -vs "{}" $WINEPREFIX/drive_c/windows/Fonts/ \; &> /dev/null
 cat > $progReg <<'EOF'
 Windows Registry Editor Version 5.00
 
