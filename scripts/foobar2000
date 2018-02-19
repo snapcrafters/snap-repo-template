@@ -11,9 +11,6 @@
 
 ARCH="i386-linux-gnu"
 
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
-
 export WINEVERPATH=$SNAP
 export PATH=$SNAP/bin:$SNAP/usr:bin:$PATH 
 export WINESERVER=$SNAP/bin/wineserver
@@ -27,10 +24,6 @@ export LD_LIBRARY_PATH="$SNAP/lib:$SNAP/lib/$ARCH:$SNAP/usr/lib:$SNAP/usr/lib/$A
 
 export HOME=$SNAP_USER_COMMON
 export XDG_DATA_HOME=$SNAP_USER_COMMON/usr/share
-
-# fonts
-export FONTCONFIG_PATH=$SNAP/etc/fonts/config.d
-export FONTCONFIG_FILE=$SNAP/etc/fonts/fonts.conf
 
 # foobar2000 env
 progName=foobar2000
