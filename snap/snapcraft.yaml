@@ -93,7 +93,7 @@ parts:
       docs=$spi/usr/share/doc
       mans=$spi/share/man
       ws="opt/wine-stable"
-      cp -r $ws/* $spi/ && rm -r $spi/opt $docs $mans
+      cp -r $ws/* $spi/ && rm -r $spi/opt $docs $mans $spi/share/wine/fonts
 
   foobar2000:
     plugin: dump
