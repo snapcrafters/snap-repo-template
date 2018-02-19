@@ -1,5 +1,6 @@
 name: foobar2000
-version: 1.3.17
+version: latest
+version-script: cat $SNAPCRAFT_STAGE/version
 summary: foobar2000 is an advanced freeware audio player.
 description: |
  Features
@@ -96,6 +97,9 @@ parts:
       cp -r $ws/* $spi/ && rm -r $spi/opt $docs $mans $spi/share/wine/fonts
 
   foobar2000:
+    install: |
+      ver=$(wget http://www.foobar2000.org/download -q -S -O - 2>&1 | grep foobar2000_v | awk '{print $4}'|sed 2d|sed 's|v||;s|</a><br||')
+      echo $ver > $SNAPCRAFT_STAGE/version
     plugin: dump
     source: ./scripts
     prepare: ./dl_f2k

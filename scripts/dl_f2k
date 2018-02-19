@@ -40,6 +40,7 @@ mkf2k () {
 }
 
 mkdsk () {
+ver=$(wget http://www.foobar2000.org/download -q -S -O - 2>&1 | grep foobar2000_v | awk '{print $4}'|sed 2d|sed 's|v||;s|</a><br||')
 cat > foobar2000.desktop <<'EOF1'
 [Desktop Entry]
 Name=foobar2000
@@ -47,7 +48,7 @@ GenericName=Audio player
 Comment=Simple and powerful audio player.
 Actions=PlayPause;Stop;Next;Prev;Random;Config
 Encoding=UTF-8
-Version=1.3.17
+Version=
 Type=Application
 Terminal=false
 Icon=${SNAP}/usr/share/pixmaps/foobar2000.png
@@ -81,6 +82,7 @@ Exec=foobar2000 -rand
 Name=Preferences
 Exec=foobar2000 -config
 EOF1
+sed -i -e 's|Version=|Version='"$ver"'|g' foobar2000.desktop
 }
 
 dlf2k
