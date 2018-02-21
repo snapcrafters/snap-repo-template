@@ -68,7 +68,7 @@ rm $progReg &> /dev/null
 fi
 
 # Stop WINE from updating $WINEPREFIX automatically 
-if [ -d $WINEPREFIX ]; then
+if [ -f $WINEPREFIX/.update-timestamp ]; then
 chkstmp=$(cat $WINEPREFIX/.update-timestamp | grep disable | wc -l)
     if [ $chkstmp -eq 0 ]; then
         echo "disable" > "$WINEPREFIX/.update-timestamp"
