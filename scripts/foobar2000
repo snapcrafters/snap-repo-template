@@ -37,7 +37,11 @@ progReg=$progHome/xp.reg
 if [ -f $progHome/version.txt ]; then
 chkf2kv=$(cat $progHome/version.txt | grep v1.4 | wc -l)
     if [ $chkf2kv -eq 1 ]; then
-        cp -r --preserve=mode $progHome/{playlists-v1.3,user-components} /tmp &> /dev/null && rm -rf $progHome && mkdir -p $progHome && cp -r --preserve=mode /tmp/{playlists-v1.3,user-components} $progHome &> /dev/null && rm -r /tmp/{playlists-v1.3,user-components}
+        if [ -d $progHome/user-components ]; then
+            cp -r --preserve=mode $progHome/{playlists-v1.3,user-components} /tmp && rm -rf $progHome && mkdir -p $progHome && cp -r --preserve=mode /tmp/{playlists-v1.3,user-components} $progHome && rm -rf /tmp/{playlists-v1.3,user-components}
+        else
+            cp -r --preserve=mode $progHome/playlists-v1.3 /tmp && rm -rf $progHome && mkdir -p $progHome && cp -r --preserve=mode /tmp/playlists-v1.3 $progHome && rm -rf /tmp/playlists-v1.3
+        fi
     fi
 fi
 
