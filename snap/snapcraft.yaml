@@ -62,6 +62,7 @@ parts:
       - libpcre3
       - libmpg123-0
       - libjpeg8
+      - libxrender1
       - zlib1g
     - on amd64:
       - libasound2-plugins:i386
@@ -83,6 +84,7 @@ parts:
       - libpcre3:i386
       - libmpg123-0:i386
       - libjpeg8:i386
+      - libxrender1:i386
       - zlib1g:i386
 
   wine-3p2:
