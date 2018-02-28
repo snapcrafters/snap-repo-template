@@ -38,7 +38,7 @@ mkdir -p $progHome
 fi
 
 # Delete broken symlinks
-find -L "$progHome" -type l -delete &> /dev/null
+find "$progHome/" -type l -delete &> /dev/null
 # Update existing symlinks, add new symlinks
 cp -urs "$progRealPath/"* "$progHome" &> /dev/null
 
