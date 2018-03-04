@@ -21,7 +21,7 @@ apps:
   foobar2000:
     command: foobar2000
     desktop: usr/share/applications/foobar2000.desktop
-    plugs: [ wayland, x11, opengl, home, desktop, desktop-legacy, pulseaudio, hardware-observe, process-control, cups-control ]
+    plugs: [ wayland, x11, opengl, home, desktop, desktop-legacy, pulseaudio, hardware-observe, process-control, cups-control, removable-media ]
 
 parts:
   enable-i386:
