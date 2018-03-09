@@ -17,6 +17,7 @@ distributions.</p>
 
     sudo snap install foobar2000
     sudo snap connect foobar2000:hardware-observe
+    sudo snap connect foobar2000:removable-media
     sudo snap connect foobar2000:process-control
     sudo snap connect foobar2000:cups-control
 
