@@ -89,5 +89,4 @@ dlf2k
 dli7z16x64
 mkdsk
 mkf2k
-mv foobar2000 bin && mv foobar2000.desktop usr/share/applications
-rm foobar2000*.exe dl_f2k
+mv foobar2000 bin && mv foobar2000.desktop usr/share/applications && cp -R -p {bin,usr,share} $SNAPCRAFT_PART_INSTALL

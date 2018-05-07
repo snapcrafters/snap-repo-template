@@ -15,7 +15,9 @@ description: |
 
 confinement: strict
 grade: stable
-architectures: [amd64, i386]
+architectures:
+  - build-on: amd64
+    run-on: [amd64, i386]
 
 apps:
   foobar2000:
@@ -26,7 +28,8 @@ apps:
 parts:
   enable-i386:
     plugin: nil
-    prepare: |
+    override-build: |
+      snapcraftctl build
       dpkg --add-architecture i386
       apt update
   wine-3p1:
@@ -34,7 +37,8 @@ parts:
     plugin: dump
     source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-stable-i386_3.0.0~xenial_i386.deb
     source-type: deb
-    install: |
+    override-build: |
+      snapcraftctl build
       spi=$SNAPCRAFT_PART_INSTALL
       lins=$spi/usr/share/lintian
       docs=$spi/usr/share/doc
@@ -42,29 +46,6 @@ parts:
       ws=opt/wine-stable
       cp -r $ws/* $spi/ && cp -r $spi/share $spi/usr/ && rm -r $spi/opt $spi/share $mans $lins $docs
     stage-packages:
-    - on i386:
-      - libasound2-plugins
-      - libfreetype6
-      - libpng12-0
-      - libncurses5
-      - libgnutls30
-      - libxext6
-      - libudev1
-      - libpulse0
-      - libwrap0
-      - libsystemd0
-      - libasyncns0
-      - libselinux1
-      - liblzma5
-      - libgcrypt20
-      - libgpg-error0
-      - libc6
-      - libpcre3
-      - libmpg123-0
-      - libjpeg8
-      - libxrender1
-      - zlib1g
-    - on amd64:
       - libasound2-plugins:i386
       - libfreetype6:i386
       - libpng12-0:i386
@@ -91,7 +72,8 @@ parts:
     plugin: dump
     source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-stable_3.0.0~xenial_i386.deb
     source-type: deb
-    install: |
+    override-build: |
+      snapcraftctl build
       spi=$SNAPCRAFT_PART_INSTALL
       docs=$spi/usr/share/doc
       mans=$spi/share/man
@@ -99,10 +81,16 @@ parts:
       cp -r $ws/* $spi/ && rm -r $spi/opt $docs $mans $spi/share/wine/fonts
 
   foobar2000:
-    install: |
+    plugin: nil
+    source: ./scripts
+    override-build: |
+      snapcraftctl build
+      set -ex
       ver=$(wget http://www.foobar2000.org/download -q -S -O - 2>&1 | grep foobar2000_v | awk '{print $4}'|sed 2d|sed 's|v||;s|</a><br||')
       echo $ver > $SNAPCRAFT_STAGE/version
-    plugin: dump
-    source: ./scripts
-    prepare: ./dl_f2k
+      ./dl_f2k
+    stage:
+      - bin
+      - usr
+      - share
     build-packages: [wget, icoutils]
