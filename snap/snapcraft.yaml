@@ -35,7 +35,7 @@ parts:
   wine-3p1:
     after: [enable-i386]
     plugin: dump
-    source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-stable-i386_3.0.0~xenial_i386.deb
+    source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-stable-i386_3.0.1~xenial_i386.deb
     source-type: deb
     override-build: |
       snapcraftctl build
@@ -70,7 +70,7 @@ parts:
 
   wine-3p2:
     plugin: dump
-    source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-stable_3.0.0~xenial_i386.deb
+    source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-stable_3.0.1~xenial_i386.deb
     source-type: deb
     override-build: |
       snapcraftctl build
