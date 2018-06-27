@@ -24,6 +24,6 @@ apps:
     #slots:
 
 parts:
-  my-part:
+  my-app:
     # See 'snapcraft plugins'
     plugin: nil
