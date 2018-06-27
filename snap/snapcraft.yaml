@@ -8,6 +8,7 @@ description: |
   store.
 
 confinement: devmode # use 'strict' once you have the right plugs and slots
+grade: devel
 
 parts:
   my-part:
