@@ -24,6 +24,47 @@ apps:
     #slots:
 
 parts:
+  # Patches to fix other parts
+  patches:
+    source: snap/patches
+    source-type: local
+    plugin: dump
+
+    # DISABLED: Bug #1775582 “`organize:{ /: another-dir/ }` causes the items under host root directory to be copied in another-dir” : Bugs : Snapcraft
+    # https://forum.snapcraft.io/t/organize-another-dir-causes-the-items-under-host-root-directory-to-be-copied-in-another-dir/5806
+    #organize:
+        #/: patches/
+    override-build: |
+      set -eu
+
+      snapcraftctl build
+
+      mkdir \
+        --parents \
+        "$SNAPCRAFT_PART_INSTALL"/patches
+      mv \
+        "$SNAPCRAFT_PART_INSTALL"/*.diff \
+        "$SNAPCRAFT_PART_INSTALL"/*.patch \
+        "$SNAPCRAFT_PART_INSTALL"/*.sed \
+        "$SNAPCRAFT_PART_INSTALL"/patches \
+        || true # Empty patches folder is allowed
+    stage:
+    - patches/*
+    override-prime: 'true'
+
   my-app:
+    after:
+    - patches
+
     # See 'snapcraft plugins'
     plugin: nil
+
+    override-stage: |
+      set -eu
+
+      snapcraftctl stage
+
+      sed \
+        --file "${SNAPCRAFT_STAGE}"/patches/patch-desktop-entries.sed \
+        --in-place \
+        "${SNAPCRAFT_STAGE}"/share/applications/*.desktop
