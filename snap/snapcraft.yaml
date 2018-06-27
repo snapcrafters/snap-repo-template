@@ -11,6 +11,18 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 grade: devel
 icon: snap/gui/icon.png
 
+apps:
+  my-app:
+    command: my-app
+    desktop: share/applications/my-app.desktop
+    #plugs:
+    #- desktop
+    #- desktop-legacy
+    #- x11
+    #- unity7
+
+    #slots:
+
 parts:
   my-part:
     # See 'snapcraft plugins'
