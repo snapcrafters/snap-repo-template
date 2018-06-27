@@ -9,6 +9,7 @@ description: |
 
 confinement: devmode # use 'strict' once you have the right plugs and slots
 grade: devel
+icon: snap/gui/icon.png
 
 parts:
   my-part:
