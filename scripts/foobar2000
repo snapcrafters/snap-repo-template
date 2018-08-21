@@ -15,7 +15,6 @@ export WINEVERPATH=$SNAP
 export PATH=$SNAP/bin:$SNAP/usr:bin:$PATH 
 export WINESERVER=$SNAP/bin/wineserver
 export WINELOADER=$SNAP/bin/wine
-export winepath=$SNAP/bin/winepath
 export WINEDLLPATH=$SNAP/lib/wine/fakedlls
 export WINEPREFIX=$SNAP_USER_COMMON/.wine
 export WINEDLLOVERRIDES="mscoree,mshtml="
@@ -62,7 +61,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Windows]
 "CSDVersion"=dword:00000300
 EOF
-wine start regedit $progReg
+regedit $progReg
 sleep 1
 rm $progReg &> /dev/null
 fi
@@ -83,7 +82,7 @@ for arg; do
     if [[ "${arg:0:1}" = "-" ]]; then
         args+=("${arg/#-//}")
     else
-        args+=("$($winepath -w "$arg")")
+        args+=("$(winepath -w "$arg")")
     fi
 done
 
