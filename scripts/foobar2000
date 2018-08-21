@@ -37,9 +37,9 @@ mkdir -p $progHome
 fi
 
 # Delete broken symlinks
-find "$progHome/" -type l -delete &> /dev/null
+find "$progHome/" -type l -delete &>/dev/null
 # Update existing symlinks, add new symlinks
-cp -urs "$progRealPath/"* "$progHome" &> /dev/null
+cp -urs "$progRealPath/"* "$progHome" &>/dev/null
 
 # fix ui glitch - workaround bug ui not showing of foobar2000 on wine.
 if [ -f $progUiFix ]; then
@@ -48,7 +48,7 @@ fi
 
 if [ ! -d $WINEPREFIX ]; then
 mkdir -p $WINEPREFIX/drive_c/windows/Fonts
-find /usr/share/fonts/ -type f -name "*.ttf" -exec ln -vs "{}" $WINEPREFIX/drive_c/windows/Fonts/ \; &> /dev/null
+find /usr/share/fonts/ -type f -name "*.ttf" -exec ln -vs "{}" $WINEPREFIX/drive_c/windows/Fonts/ \; &>/dev/null
 cat > $progReg <<'EOF'
 Windows Registry Editor Version 5.00
 
@@ -63,7 +63,7 @@ Windows Registry Editor Version 5.00
 EOF
 regedit $progReg
 sleep 1
-rm $progReg &> /dev/null
+rm $progReg &>/dev/null
 fi
 
 # Stop WINE from updating $WINEPREFIX automatically 
