@@ -40,7 +40,7 @@ mkf2k () {
 }
 
 mkdsk () {
-ver=$(wget http://www.foobar2000.org/download -q -S -O - 2>&1 | grep foobar2000_v | awk '{print $4}'|sed '2,3d'|sed 's|v||;s|</a><br||')
+ver=$(wget http://www.foobar2000.org/download -q -S -O - 2>&1 | grep foobar2000_v | awk '{print $4}'|sed '2,3d;s|v||;s|</a><br||;s|</a>||')
 cat > foobar2000.desktop <<'EOF1'
 [Desktop Entry]
 Name=foobar2000
