@@ -112,6 +112,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="49 54 59"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -153,6 +154,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="239 240 241"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -194,6 +196,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="46 52 54"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -235,6 +238,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="59 62 69"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -276,6 +280,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="211 218 227"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -317,6 +322,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="0 0 0"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -358,6 +364,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="255 255 255"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -399,6 +406,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="38 50 56"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
@@ -440,6 +448,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="207 216 220"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 else
@@ -480,6 +489,7 @@ Windows Registry Editor Version 5.00
 "WindowText"="0 0 0"
 EOF
 regedit $progReg
+sleep 1
 rm $progReg &>/dev/null
 fi
 
