@@ -16,10 +16,6 @@ distributions.</p>
 ## Install
 
     sudo snap install foobar2000
-    sudo snap connect foobar2000:hardware-observe
-    sudo snap connect foobar2000:removable-media
-    sudo snap connect foobar2000:process-control
-    sudo snap connect foobar2000:cups-control
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
