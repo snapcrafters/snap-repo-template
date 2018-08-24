@@ -19,67 +19,20 @@ architectures:
   - build-on: amd64
     run-on: [amd64, i386]
 
+plugs:
+  wine-platform-plug:
+    content: wine-base-devel
+    interface: content
+    target: $SNAP/wine-platform
+    default-provider: wine-platform-i386
+
 apps:
   foobar2000:
     command: foobar2000
     desktop: usr/share/applications/foobar2000.desktop
-    plugs: [ wayland, x11, opengl, home, desktop, desktop-legacy, network, pulseaudio, hardware-observe, process-control, cups-control, removable-media ]
+    plugs: [ wayland, x11, opengl, home, desktop, desktop-legacy, network, pulseaudio, hardware-observe, process-control, cups-control, removable-media, wine-platform-plug ]
 
 parts:
-  enable-i386:
-    plugin: nil
-    override-build: |
-      snapcraftctl build
-      dpkg --add-architecture i386
-      apt update
-  wine-3p1:
-    after: [enable-i386]
-    plugin: dump
-    source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-devel-i386_3.14.0~xenial_i386.deb
-    source-type: deb
-    override-build: |
-      snapcraftctl build
-      spi=$SNAPCRAFT_PART_INSTALL
-      lins=$spi/usr/share/lintian
-      docs=$spi/usr/share/doc
-      mans=$spi/usr/share/man
-      ws=opt/wine-devel
-      cp -r $ws/* $spi/ && cp -r $spi/share $spi/usr/ && rm -r $spi/opt $spi/share $mans $lins $docs
-    stage-packages:
-      - libasound2-plugins:i386
-      - libfreetype6:i386
-      - libpng12-0:i386
-      - libncurses5:i386
-      - libgnutls30:i386
-      - libxext6:i386
-      - libudev1:i386
-      - libpulse0:i386
-      - libwrap0:i386
-      - libsystemd0:i386
-      - libasyncns0:i386
-      - libselinux1:i386
-      - liblzma5:i386
-      - libgcrypt20:i386
-      - libgpg-error0:i386
-      - libc6:i386
-      - libpcre3:i386
-      - libmpg123-0:i386
-      - libjpeg8:i386
-      - libxrender1:i386
-      - zlib1g:i386
-
-  wine-3p2:
-    plugin: dump
-    source: https://dl.winehq.org/wine-builds/ubuntu/pool/main/wine-devel_3.14.0~xenial_i386.deb
-    source-type: deb
-    override-build: |
-      snapcraftctl build
-      spi=$SNAPCRAFT_PART_INSTALL
-      docs=$spi/usr/share/doc
-      mans=$spi/share/man
-      ws="opt/wine-devel"
-      cp -r $ws/* $spi/ && rm -r $spi/opt $docs $mans $spi/share/wine/fonts
-
   foobar2000:
     plugin: nil
     source: ./scripts
@@ -92,5 +45,5 @@ parts:
     stage:
       - bin
       - usr
-      - share
+      - wine-platform
     build-packages: [wget, icoutils]
