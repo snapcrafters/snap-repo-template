@@ -9,9 +9,12 @@
 # Date: Jan 24 2018
 #
 
-chkwp=$SNAP/wine-platform
+# wineplatform dir on snap
+WP=$SNAP/wine-platform
+# wine release selected
+WINE_REL=wine-stable
 
-if [ ! -d $chkwp/usr ] ; then
+if [ ! -d $WP/usr ] ; then
   echo "You need to connect this snap to the wine-platform-i386 snap."
   echo ""
   echo "snap connect $SNAP_NAME:wine-platform-plug wine-platform-i386:wine-base-devel"
@@ -40,41 +43,43 @@ SNAP=`echo $SNAP | sed -e "s|/var/lib/snapd||g"`
 
 export GTK_MODULES=""
 export WINEARCH="win32"
+
 if [ "${WINEARCH}" == "win32" ]; then
   ARCH="i386-linux-gnu"
 else
   ARCH="x86_64-linux-gnu"
 fi
 
-export WINEVERPATH=$SNAP/wine-platform
-export WINESERVER=$SNAP/wine-platform/bin/wineserver
-export WINELOADER=$SNAP/wine-platform/bin/wine
-export WINEDLLPATH=$SNAP/wine-platform/lib/wine/fakedlls
+export WINEVERPATH=$WP/$WINE_REL
+export WINESERVER=$WP/$WINE_REL/bin/wineserver
+export WINELOADER=$WP/$WINE_REL/bin/wine
+export WINEDLLPATH=$WP/$WINE_REL/lib/wine/fakedlls
 export WINEPREFIX=$SNAP_USER_COMMON/.wine
 export WINEDLLOVERRIDES="mscoree,mshtml="
 export WINEDEBUG=-all
-export LD_LIBRARY_PATH="$SNAP/wine-platform/lib:$SNAP/wine-platform/lib/$ARCH:$SNAP/wine-platform/usr/lib:$SNAP/wine-platform/usr/lib/$ARCH:$LD_LIBRARY_PATH"
-export PATH=$PATH:$SNAP/wine-platform/bin:$SNAP/wine-platform/usr/bin
+export LD_LIBRARY_PATH="$WP/lib:$WP/lib/$ARCH:$WP/usr/lib:$WP/usr/lib/$ARCH:$LD_LIBRARY_PATH"
+export PATH=$PATH:$WP/bin:$WP/usr/bin:$WP/$WINE_REL/bin
 
 # XKB config
-export XKB_CONFIG_ROOT=$SNAP/wine-platform/usr/share/X11/xkb
+export XKB_CONFIG_ROOT=$WP/usr/share/X11/xkb
 
 # Give XOpenIM a chance to locate locale data.
 # This is required for text input to work in SDL2 games.
-export XLOCALEDIR=$SNAP/wine-platform/usr/share/X11/locale
+export XLOCALEDIR=$WP/usr/share/X11/locale
+export LOCPATH=$WP/usr/lib/locale
 
 # Set XCursors path
-export XCURSOR_PATH=$SNAP/wine-platform/usr/share/icons
+export XCURSOR_PATH=$WP/usr/share/icons
 
 # SAMBA Libs for ntlm_auth to function
 append_dir LD_LIBRARY_PATH $SNAP/usr/lib/$ARCH/samba
 
 # Mesa Libs for OpenGL support
-append_dir LD_LIBRARY_PATH $SNAP/wine-platform/usr/lib/$ARCH/mesa
-append_dir LD_LIBRARY_PATH $SNAP/wine-platform/usr/lib/$ARCH/mesa-egl
+append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/mesa
+append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/mesa-egl
 
 # Tell libGL where to find the drivers
-export LIBGL_DRIVERS_PATH=$SNAP/wine-platform/usr/lib/$ARCH/dri
+export LIBGL_DRIVERS_PATH=$WP/usr/lib/$ARCH/dri
 append_dir LD_LIBRARY_PATH $LIBGL_DRIVERS_PATH
 
 # Workaround in snapd for proprietary nVidia drivers mounts the drivers in
@@ -84,28 +89,29 @@ append_dir LD_LIBRARY_PATH $LIBGL_DRIVERS_PATH
 append_dir LD_LIBRARY_PATH /var/lib/snapd/lib/gl
 
 # Pulseaudio export
-append_dir LD_LIBRARY_PATH $SNAP/wine-platform/usr/lib/$ARCH/pulseaudio
+append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/pulseaudio
 
 # EGL vendor files on glvnd enabled systems
 [ -d /var/lib/snapd/lib/glvnd/egl_vendor.d ] && \
 append_dir __EGL_VENDOR_LIBRARY_DIRS /var/lib/snapd/lib/glvnd/egl_vendor.d
 
 # Tell GStreamer where to find its plugins
-export GST_PLUGIN_PATH=$SNAP/wine-platform/usr/lib/$ARCH/gstreamer-1.0
-export GST_PLUGIN_SYSTEM_PATH=$SNAP/wine-platform/usr/lib/$ARCH/gstreamer-1.0
+export GST_PLUGIN_PATH=$WP/usr/lib/$ARCH/gstreamer-1.0
+export GST_PLUGIN_SYSTEM_PATH=$WP/usr/lib/$ARCH/gstreamer-1.0
 # gst plugin scanner doesn't install in the correct path: https://github.com/ubuntu/snapcraft-desktop-helpers/issues/43
-export GST_PLUGIN_SCANNER=$SNAP/wine-platform/usr/lib/$ARCH/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner
+export GST_PLUGIN_SCANNER=$WP/usr/lib/$ARCH/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner
 
 # XDG Config
-prepend_dir XDG_CONFIG_DIRS $SNAP/wine-platform/etc/xdg
+prepend_dir XDG_CONFIG_DIRS $WP/etc/xdg
 
 # Define snaps' own data dir
-prepend_dir XDG_DATA_DIRS $SNAP/wine-platform/usr/share
+prepend_dir XDG_DATA_DIRS $WP/usr/share
 prepend_dir XDG_DATA_DIRS $SNAP_USER_COMMON
 
 export HOME=$SNAP_USER_COMMON
 export XDG_DATA_HOME=$SNAP_USER_COMMON/.local/share
 mkdir -p $XDG_DATA_HOME
+
 # Workaround for GLib < 2.53.2 not searching for schemas in $XDG_DATA_HOME:
 #   https://bugzilla.gnome.org/show_bug.cgi?id=741335
 prepend_dir XDG_DATA_DIRS $XDG_DATA_HOME
@@ -131,18 +137,18 @@ if [ -n "$XDG_RUNTIME_DIR" ]; then
 fi
 
 # Font Config and themes
-export FONTCONFIG_PATH=$SNAP/wine-platform/etc/fonts/conf.d
+export FONTCONFIG_PATH=$WP/etc/fonts/conf.d
 export FONTCONFIG_FILE=$XDG_CONFIG_HOME/fontconfig/fonts.conf
-if [ -f $SNAP/wine-platform/etc/fonts/fonts.conf ] && [ ! -f "${FONTCONFIG_FILE}" ]; then
+if [ -f $WP/etc/fonts/fonts.conf ] && [ ! -f "${FONTCONFIG_FILE}" ]; then
   mkdir -p $XDG_CONFIG_HOME/fontconfig/
-  cp $SNAP/wine-platform/etc/fonts/fonts.conf $FONTCONFIG_FILE
+  cp $WP/etc/fonts/fonts.conf $FONTCONFIG_FILE
 fi
 
 # Gdk-pixbuf loaders
 export GDK_PIXBUF_MODULE_FILE=$XDG_CACHE_HOME/gdk-pixbuf-loaders.cache
-export GDK_PIXBUF_MODULEDIR=$SNAP/wine-platform/usr/lib/$ARCH/gdk-pixbuf-2.0/2.10.0/loaders
-if [ -f $SNAP/wine-platform/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders ] && [ ! -f "${GDK_PIXBUF_MODULE_FILE}" ]; then
-  $SNAP/wine-platform/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $GDK_PIXBUF_MODULE_FILE
+export GDK_PIXBUF_MODULEDIR=$WP/usr/lib/$ARCH/gdk-pixbuf-2.0/2.10.0/loaders
+if [ -f $WP/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders ] && [ ! -f "${GDK_PIXBUF_MODULE_FILE}" ]; then
+  $WP/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $GDK_PIXBUF_MODULE_FILE
 fi
 
 # foobar2000 env
