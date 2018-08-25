@@ -21,7 +21,7 @@ architectures:
 
 plugs:
   wine-platform-plug:
-    content: wine-base-devel
+    content: wine-base-stable
     interface: content
     target: $SNAP/wine-platform
     default-provider: wine-platform-i386
