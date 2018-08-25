@@ -9,15 +9,17 @@
 # Date: Jan 24 2018
 #
 
-# wineplatform dir on snap
+# wine-platform dir on snap
 WP=$SNAP/wine-platform
-# wine release selected
-WINE_REL=wine-stable
+# wine release
+REL=stable
+# wine base
+WINE_BASE=wine-$REL
 
 if [ ! -d $WP/usr ] ; then
   echo "You need to connect this snap to the wine-platform-i386 snap."
   echo ""
-  echo "snap connect $SNAP_NAME:wine-platform-plug wine-platform-i386:wine-base-devel"
+  echo "snap connect $SNAP_NAME:wine-platform-plug wine-platform-i386:wine-base-$REL"
   exit 1
 fi
 
@@ -50,15 +52,16 @@ else
   ARCH="x86_64-linux-gnu"
 fi
 
-export WINEVERPATH=$WP/$WINE_REL
-export WINESERVER=$WP/$WINE_REL/bin/wineserver
-export WINELOADER=$WP/$WINE_REL/bin/wine
-export WINEDLLPATH=$WP/$WINE_REL/lib/wine/fakedlls
+export WINEVERPATH=$WP/$WINE_BASE
+export WINESERVER=$WP/$WINE_BASE/bin/wineserver
+export WINELOADER=$WP/$WINE_BASE/bin/wine
+export WINEDLLPATH=$WP/$WINE_BASE/lib/wine/fakedlls
+export WINETRICKS=$WP/bin/winetricks
 export WINEPREFIX=$SNAP_USER_COMMON/.wine
 export WINEDLLOVERRIDES="mscoree,mshtml="
 export WINEDEBUG=-all
 export LD_LIBRARY_PATH="$WP/lib:$WP/lib/$ARCH:$WP/usr/lib:$WP/usr/lib/$ARCH:$LD_LIBRARY_PATH"
-export PATH=$PATH:$WP/bin:$WP/usr/bin:$WP/$WINE_REL/bin
+export PATH=$PATH:$WP/bin:$WP/usr/bin:$WP/$WINE_BASE/bin
 
 # XKB config
 export XKB_CONFIG_ROOT=$WP/usr/share/X11/xkb
@@ -72,7 +75,7 @@ export LOCPATH=$WP/usr/lib/locale
 export XCURSOR_PATH=$WP/usr/share/icons
 
 # SAMBA Libs for ntlm_auth to function
-append_dir LD_LIBRARY_PATH $SNAP/usr/lib/$ARCH/samba
+append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/samba
 
 # Mesa Libs for OpenGL support
 append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/mesa
@@ -109,6 +112,8 @@ prepend_dir XDG_DATA_DIRS $WP/usr/share
 prepend_dir XDG_DATA_DIRS $SNAP_USER_COMMON
 
 export HOME=$SNAP_USER_COMMON
+
+# Set XDG_DATA_HOME to local path
 export XDG_DATA_HOME=$SNAP_USER_COMMON/.local/share
 mkdir -p $XDG_DATA_HOME
 
