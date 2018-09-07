@@ -161,7 +161,6 @@ progName=foobar2000
 progRealPath=$SNAP/usr/share/$progName
 progHome=$SNAP_USER_DATA/$progName
 progBin=$progName.exe
-progUiFix=$progHome/configuration/foo_ui_std.dll.cfg
 progReg=$progHome/xp.reg
 
 if [ ! -d $progHome ];then
@@ -172,11 +171,6 @@ fi
 find "$progHome/" -type l -delete &>/dev/null
 # Update existing symlinks, add new symlinks
 cp -urs "$progRealPath/"* "$progHome" &>/dev/null
-
-# fix ui glitch - workaround bug ui not showing of foobar2000 on wine.
-if [ -f $progUiFix ]; then
-rm "$progUiFix"
-fi
 
 if [ ! -d $WINEPREFIX ]; then
 mkdir -p $WINEPREFIX/drive_c/windows/Fonts
