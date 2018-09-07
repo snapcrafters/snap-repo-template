@@ -161,7 +161,6 @@ progName=foobar2000
 progRealPath=$SNAP/usr/share/$progName
 progHome=$SNAP_USER_DATA/$progName
 progBin=$progName.exe
-progReg=$progHome/xp.reg
 
 if [ ! -d $progHome ];then
 mkdir -p $progHome
@@ -175,21 +174,8 @@ cp -urs "$progRealPath/"* "$progHome" &>/dev/null
 if [ ! -d $WINEPREFIX ]; then
 mkdir -p $WINEPREFIX/drive_c/windows/Fonts
 find /usr/share/fonts/ -type f -name "*.ttf" -exec ln -vs "{}" $WINEPREFIX/drive_c/windows/Fonts/ \; &>/dev/null
-cat > $progReg <<'EOF'
-Windows Registry Editor Version 5.00
-
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion]
-"CSDVersion"="Service Pack 3"
-"CurrentBuildNumber"="2600"
-"CurrentVersion"="5.1"
-"ProductName"="Microsoft Windows XP"
-
-[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Windows]
-"CSDVersion"=dword:00000300
-EOF
-regedit $progReg
-sleep 1
-rm $progReg &>/dev/null
+$WINETRICKS --unattended wmp9
+rm -rf $XDG_CACHE_HOME/winetricks
 fi
 
 # Stop WINE from updating $WINEPREFIX automatically 
