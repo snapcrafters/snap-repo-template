@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://avatars1.githubusercontent.com/u/29598503?v=3&s=256" alt="Project">
+  <img src="https://avatars1.githubusercontent.com/u/29598503?v=3&s=256" alt="[Project]">
   <br />
   [Project]
 </h1>
@@ -23,7 +23,7 @@ distributions.</p>
 ![my-snap-name](screenshot.png?raw=true "my-snap-name")
 -->
 
-<p align="center">Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.png" align="top" width="24" /> with :gift_heart: by Snapcrafters</p>
+<p align="center">Published for <img src="https://raw.githubusercontent.com/anythingcodes/slack-emoji-for-techies/gh-pages/emoji/tux.png" align="top" width="24" /> with :gift_heart: by Snapcrafters</p>
 
 ## Remaining Tasks
 
@@ -63,10 +63,10 @@ upstream so [Project] can authoritatively publish future releases.
 
 If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft.io).
 
-<!-- 
+<!--
 ## The Snapcrafters
 
-| [![Your Name](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/yourname/) |
+| [![Your Name](https://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/yourname/) |
 | :---: |
 | [Your Name](https://github.com/yourname/) |
 --> 
@@ -74,7 +74,7 @@ If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft
 <!-- Uncomment and modify this when you have upstream contacts
 ## Upstream
 
-| [![Upstream Name](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431?s=128)](https://github.com/upstreamname) |
+| [![Upstream Name](https://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431?s=128)](https://github.com/upstreamname) |
 | :---: |
 | [Upstream Name](https://github.com/upstreamname) |
 -->
