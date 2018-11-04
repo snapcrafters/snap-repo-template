@@ -16,12 +16,24 @@ REL=stable
 # wine base
 WINE_BASE=wine-$REL
 
-if [ ! -d $WP/usr ] ; then
-  echo "You need to connect this snap to the wine-platform-i386 snap."
+if [ ! -f $WP/$WINE_BASE/bin/wine64 ] ; then
+  echo "You need to connect this snap to the wine-platform snap."
   echo ""
-  echo "snap connect $SNAP_NAME:wine-platform-plug wine-platform-i386:wine-base-$REL"
+  echo "snap disconnect $SNAP_NAME:wine-platform-plug"
+  echo "snap install wine-platform"
+  echo "snap connect $SNAP_NAME:wine-platform-plug wine-platform:wine-base-$REL"
   exit 1
 fi
+
+needs_update=true
+
+. $SNAP_USER_DATA/.last_revision 2>/dev/null || true
+if [ "$SNAP_DESKTOP_LAST_REVISION" = "$SNAP_REVISION" ]; then
+  needs_update=false
+fi
+
+# Set $REALHOME to the users real home directory
+REALHOME=`getent passwd $UID | cut -d ':' -f 6`
 
 function prepend_dir() {
   local var="$1"
@@ -44,12 +56,17 @@ function append_dir() {
 SNAP=`echo $SNAP | sed -e "s|/var/lib/snapd||g"`
 
 export GTK_MODULES=""
-export WINEARCH="win32"
 
-if [ "${WINEARCH}" == "win32" ]; then
-  ARCH="i386-linux-gnu"
+if [ "$SNAP_ARCH" = "amd64" ]; then
+  # using win32 bc of 32bit only app
+  export WINEARCH=win32
+  export ARCH="x86_64-linux-gnu"
+elif [ "$SNAP_ARCH" = "i386" ]; then
+  export WINEARCH=win32
+  export ARCH="i386-linux-gnu"
 else
-  ARCH="x86_64-linux-gnu"
+  echo "Host architecture ($SNAP_ARCH) unsupported."
+  exit 1
 fi
 
 export WINEVERPATH=$WP/$WINE_BASE
@@ -62,6 +79,12 @@ export WINEDLLOVERRIDES="mscoree,mshtml="
 export WINEDEBUG=-all
 export LD_LIBRARY_PATH="$WP/lib:$WP/lib/$ARCH:$WP/usr/lib:$WP/usr/lib/$ARCH:$LD_LIBRARY_PATH"
 export PATH=$PATH:$WP/bin:$WP/usr/bin:$WP/$WINE_BASE/bin
+
+if [ "$SNAP_ARCH" = "amd64" ]; then
+  append_dir LD_LIBRARY_PATH $WP/lib64
+  append_dir LD_LIBRARY_PATH $WP/lib/i386-linux-gnu
+  append_dir LD_LIBRARY_PATH $WP/usr/lib/i386-linux-gnu
+fi
 
 # XKB config
 export XKB_CONFIG_ROOT=$WP/usr/share/X11/xkb
@@ -76,13 +99,17 @@ export XCURSOR_PATH=$WP/usr/share/icons
 
 # SAMBA Libs for ntlm_auth to function
 append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/samba
+[ "$SNAP_ARCH" = "amd64" ] && append_dir LD_LIBRARY_PATH $WP/usr/lib/i386-linux-gnu/samba
 
 # Mesa Libs for OpenGL support
 append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/mesa
 append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/mesa-egl
+[ "$SNAP_ARCH" = "amd64" ] && append_dir LD_LIBRARY_PATH $WP/usr/lib/i386-linux-gnu/mesa
+[ "$SNAP_ARCH" = "amd64" ] && append_dir LD_LIBRARY_PATH $WP/usr/lib/i386-linux-gnu/mesa-egl
 
 # Tell libGL where to find the drivers
 export LIBGL_DRIVERS_PATH=$WP/usr/lib/$ARCH/dri
+[ "$SNAP_ARCH" = "amd64" ] && append_dir LIBGL_DRIVERS_PATH $WP/usr/lib/i386-linux-gnu/dri
 append_dir LD_LIBRARY_PATH $LIBGL_DRIVERS_PATH
 
 # Workaround in snapd for proprietary nVidia drivers mounts the drivers in
@@ -93,6 +120,7 @@ append_dir LD_LIBRARY_PATH /var/lib/snapd/lib/gl
 
 # Pulseaudio export
 append_dir LD_LIBRARY_PATH $WP/usr/lib/$ARCH/pulseaudio
+[ "$SNAP_ARCH" = "amd64" ] && append_dir LD_LIBRARY_PATH $WP/usr/lib/i386-linux-gnu/pulseaudio
 
 # EGL vendor files on glvnd enabled systems
 [ -d /var/lib/snapd/lib/glvnd/egl_vendor.d ] && \
@@ -110,6 +138,7 @@ prepend_dir XDG_CONFIG_DIRS $WP/etc/xdg
 # Define snaps' own data dir
 prepend_dir XDG_DATA_DIRS $WP/usr/share
 prepend_dir XDG_DATA_DIRS $SNAP_USER_COMMON
+prepend_dir XDG_DATA_DIRS $SNAP_USER_DATA
 
 export HOME=$SNAP_USER_COMMON
 
@@ -141,12 +170,45 @@ if [ -n "$XDG_RUNTIME_DIR" ]; then
     fi
 fi
 
-# Font Config and themes
+# Keep an array of data dirs, for looping through them
+IFS=':' read -r -a data_dirs_array <<< "$XDG_DATA_DIRS"
+
+# Font Config
 export FONTCONFIG_PATH=$WP/etc/fonts/conf.d
 export FONTCONFIG_FILE=$XDG_CONFIG_HOME/fontconfig/fonts.conf
-if [ -f $WP/etc/fonts/fonts.conf ] && [ ! -f "${FONTCONFIG_FILE}" ]; then
-  mkdir -p $XDG_CONFIG_HOME/fontconfig/
-  cp $WP/etc/fonts/fonts.conf $FONTCONFIG_FILE
+
+function make_user_fontconfig {
+  echo "<fontconfig>"
+  if [ -d $REALHOME/.local/share/fonts ]; then
+    echo "  <dir>$REALHOME/.local/share/fonts</dir>"
+  fi
+  if [ -d $REALHOME/.fonts ]; then
+    echo "  <dir>$REALHOME/.fonts</dir>"
+  fi
+  for ((i = 0; i < ${#data_dirs_array[@]}; i++)); do
+    if [ -d "${data_dirs_array[$i]}/fonts" ]; then
+      echo "  <dir>${data_dirs_array[$i]}/fonts</dir>"
+    fi
+  done
+  echo '  <include ignore_missing="yes">conf.d</include>'
+  # We need to include this default cachedir first so that caching
+  # works: without it, fontconfig will try to write to the real user home
+  # cachedir and be blocked by AppArmor.
+  echo '  <cachedir prefix="xdg">fontconfig</cachedir>'
+  if [ -d $REALHOME/.cache/fontconfig ]; then
+    echo "  <cachedir>$REALHOME/.cache/fontconfig</cachedir>"
+  fi
+  echo "</fontconfig>"
+}
+
+if [ $needs_update = true ]; then
+  rm -rf $XDG_DATA_HOME/{fontconfig,fonts,fonts-*,themes,.themes}
+  mkdir -p $XDG_CONFIG_HOME/fontconfig
+if [ -f $REALHOME/.config/fontconfig/fonts.conf ]; then
+  cp $REALHOME/.config/fontconfig/fonts.conf $FONTCONFIG_FILE
+else
+  make_user_fontconfig > $XDG_CONFIG_HOME/fontconfig/fonts.conf
+fi
 fi
 
 # Gdk-pixbuf loaders
@@ -161,6 +223,7 @@ progName=foobar2000
 progRealPath=$SNAP/usr/share/$progName
 progHome=$SNAP_USER_DATA/$progName
 progBin=$progName.exe
+progUiFix=$progHome/configuration/foo_ui_std.dll.cfg
 
 if [ ! -d $progHome ];then
 mkdir -p $progHome
@@ -171,10 +234,16 @@ find "$progHome/" -type l -delete &>/dev/null
 # Update existing symlinks, add new symlinks
 cp -urs "$progRealPath/"* "$progHome" &>/dev/null
 
+# fix ui glitch - workaround bug ui not showing of foobar2000 on wine.
+if [ -f $progUiFix ]; then
+rm "$progUiFix"
+fi
+
 if [ ! -d $WINEPREFIX ]; then
+# link ttf & ttc fonts from root to wineprefix
 mkdir -p $WINEPREFIX/drive_c/windows/Fonts
-find /usr/share/fonts/ -type f -name "*.ttf" -exec ln -vs "{}" $WINEPREFIX/drive_c/windows/Fonts/ \; &>/dev/null
-$WINETRICKS --unattended wmp9
+find /usr/share/fonts/ -type f \( -name "*.ttf" -o -name "*.ttc" \) -exec ln -vs "{}" $WINEPREFIX/drive_c/windows/Fonts/ \; &>/dev/null
+$WINETRICKS --unattended wmp9 vcrun2017
 rm -rf $XDG_CACHE_HOME/winetricks
 fi
 
@@ -185,6 +254,8 @@ chkstmp=$(cat $WINEPREFIX/.update-timestamp | grep disable | wc -l)
         echo "disable" > "$WINEPREFIX/.update-timestamp"
     fi
 fi
+
+[ $needs_update = true ] && echo "SNAP_DESKTOP_LAST_REVISION=$SNAP_REVISION" > $SNAP_USER_DATA/.last_revision
 
 # Switches: use -something instead of /something to avoid confusion with Unix paths
 # Also convert Unix paths to Windows paths.
@@ -198,8 +269,12 @@ for arg; do
     fi
 done
 
+if [ "$1" == "winecfg" ] ; then
+  wine winecfg
+else
 if [ -z "$1" ] ; then
   wine "$progHome/$progBin"
 else
   wine start /unix "$progHome/$progBin" "${args[@]}"
+fi
 fi

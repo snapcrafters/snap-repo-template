@@ -27,12 +27,10 @@ dli7z16x64 () {
 }
 
 mkf2k () {
-    mkdir -p usr/share && mkdir wine-platform
+    mkdir ./{wine-platform,bin} && mkdir -p usr/share/{pixmaps,applications}
     7z x "foobar2000_v*.exe" -x'!$PLUGINSDIR' -x'!$R0' -x'!icons' -x'!foobar2000 Shell Associations Updater.exe' -x'!uninstall.exe' -o"usr/share/foobar2000" &> /dev/null
     touch usr/share/foobar2000/portable_mode_enabled
     find "usr" -type d -execdir chmod 755 {} +
-    mkdir -p usr/share/pixmaps && mkdir -p usr/share/applications && mkdir bin
-    wrestool -x -t3 -n5 usr/share/foobar2000/foobar2000.exe --raw > usr/share/pixmaps/foobar2000.png
 }
 
 mkdsk () {
@@ -85,4 +83,4 @@ dlf2k
 dli7z16x64
 mkdsk
 mkf2k
-mv foobar2000 bin && mv foobar2000.desktop usr/share/applications && cp -R -p {bin,usr,wine-platform} $SNAPCRAFT_PART_INSTALL
+mv foobar2000 bin && mv foobar2000.desktop usr/share/applications && mv foobar2000.png usr/share/pixmaps && cp -R -p {bin,usr,wine-platform} $SNAPCRAFT_PART_INSTALL
