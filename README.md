@@ -16,6 +16,7 @@ distributions.</p>
 ## Install
 
     sudo snap install foobar2000
+    sudo snap connect foobar2000:removable-media
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
