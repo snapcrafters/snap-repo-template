@@ -6,8 +6,3 @@ description: |
 grade: stable
 
 confinement:strict
-
-parts:
-  my-part:
-    # See 'snapcraft plugins'
-    plugin: python
