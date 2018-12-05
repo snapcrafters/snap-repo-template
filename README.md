@@ -23,6 +23,10 @@ distributions.</p>
 
     sudo snap install my-snap-name
 
+<!-- Uncomment and modify this when your snap is available on the store
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/my-snap-name)
+-->
+
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
 ## Remaining tasks
