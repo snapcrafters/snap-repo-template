@@ -1,15 +1,84 @@
-name: my-snap-name # you probably want to 'snapcraft register <name>'
-version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+name: gzdoom
+base: core18
+version: 'g4.2'
+summary: Doom Source Port
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+  Snap build from https://github.com/Hvassaa/gzdoom-snap
+  To setup WADs, run the app once and put them in ~/snap/gzdoom/.config/gzdoom/
+  ZDoom is a family of enhanced ports of the Doom engine for running on modern operating systems.
+  It runs on Windows, Linux, and OS X, and adds new features not found in the games as originally
+  published by id Software.
+icon: snap/gui/gzdoom.png
+license: "GPL-3.0"
 
-confinement: devmode # use 'strict' once you have the right plugs and slots
+grade: stable
+confinement: strict
+
+apps:
+  gzdoom:
+    command: desktop-launch $SNAP/bin/gzdoom
+    plugs: [desktop, desktop-legacy, unity7, network, opengl, pulseaudio, audio-playback, joystick, x11, wayland, home]
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/pulseaudio:$LD_LIBRARY_PATH
 
 parts:
-  my-part:
-    # See 'snapcraft plugins'
-    plugin: nil
+  gzdoom:
+    source: https://github.com/coelckers/gzdoom.git
+    source-tag: 'g4.2'
+    plugin: cmake
+    configflags: ["-DCMAKE_BUILD_TYPE=Release", "-DNO_FMOD=ON"]
+    build-packages:
+      - g++
+      - make
+      - cmake
+      - libsdl2-dev
+      - git
+      - zlib1g-dev
+      - libbz2-dev
+      - libjpeg-dev
+      - libfluidsynth-dev
+      - libgme-dev
+      - libopenal-dev
+      - libmpg123-dev
+      - libsndfile1-dev
+      - libgtk-3-dev
+      - timidity
+      - nasm
+      - libgl1-mesa-dev
+      - tar
+      - libsdl1.2-dev
+      - libglew-dev
+    stage-packages:
+      - libsdl2-2.0-0
+      - libopenal1
+      - libfluidsynth1
+      - libgme0
+      - libmpg123-0
+      - libsndfile1
+      - libwildmidi2
+      - libgtk-3-0
+      - timidity
+      - libsdl1.2debian
+      - libgl1-mesa-glx
+      - libpulse0
+      - libgomp1
+      - yad
+      - libslang2
+      - fluid-soundfont-gm
+      - libglu1-mesa
+    after:
+      - desktop-glib-only
+  desktop-glib-only:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
+    plugin: make
+    build-packages:
+      - libglib2.0-dev
+    stage-packages:
+      - libglib2.0-bin
+
+layout:
+  /usr/share/games/doom: # to locate the .pk3 files
+    bind: $SNAP/share/games/doom
+  /usr/share/doom/soundfonts: # to locate the soundfonts
+    bind: $SNAP/usr/share/sounds/sf2 

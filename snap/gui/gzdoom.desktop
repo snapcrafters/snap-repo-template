@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GZDoom
+Exec=gzdoom
+Icon=${SNAP}/meta/gui/snapname.png
+Comment=The GZDoom Source Port
+Keywords=doom;gzdoom
+Type=Application
+Categories=Game;
+StartupNotify=true
