@@ -81,6 +81,10 @@ The first time you launch the app, it will inform you that no WADs were found, d
 </h1>
 <p align="center">Another scene from  <a href="https://freedoom.github.io/">Freedoom:</a> Phase 1</p>
 
+## Upstream Project
+<p>All credit naturally goes to the<a href="https://freedoom.github.io/">GZDoom/ZDoom developers</a>.</p>
+https://zdoom.org/
+
 ## Licenses
 See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zdoom.org/wiki/License
 
@@ -98,7 +102,7 @@ See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zd
   - [x] Add a screenshot to this `README.md`
   - [ ] Publish the `devmode` snap in the Snap store edge channel
   - [x] Add install instructions to this `README.md`
-  - [ ] Update snap store metadata, icons and screenshots
+  - [x] Update snap store metadata, icons and screenshots
   - [x] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
   - [x] Publish the confined snap in the Snap store beta channel
   - [x] Update the install instructions in this `README.md`
@@ -111,7 +115,7 @@ See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zd
   - [ ] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [ ] Submit a pull request or patch upstream that adds snap install documentation - [link]()
   - [ ] Submit a pull request or patch upstream that adds the `snapcraft.yaml` and any required assets/launchers - [link]()
-  - [ ] Add upstream contact information to the `README.md`  
+  - [x] Add upstream contact information to the `README.md`  
   - If upstream accept the PR:
     - [ ] Request upstream create a Snap store account
     - [ ] Contact the Snap Advocacy team to request the snap be transferred to upstream
