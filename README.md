@@ -68,6 +68,18 @@ The first time you launch the app, it will inform you that no WADs were found, d
 </h1>
 <p align="center">The WAD selector</p>
 
+<h1 align="center">
+  <img src="screenshot2.png" alt="Screenshot 2 here!">
+  <br />
+</h1>
+<p align="center">Scene from  <a href="https://freedoom.github.io/">Freedoom:</a> Phase 1</p>
+
+
+<h1 align="center">
+  <img src="screenshot3.png" alt="Screenshot 3 here!">
+  <br />
+</h1>
+<p align="center">Another scene from  <a href="https://freedoom.github.io/">Freedoom:</a> Phase 1</p>
 
 ## Licenses
 See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zdoom.org/wiki/License
@@ -83,7 +95,7 @@ See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zd
   - [x] Update logos and references to `[Project]` and `[my-snap-name]`
   - [x] Create a snap that runs in `devmode`
   - [x] Register the snap in the store, **using the preferred upstream name**
-  - [ ] Add a screenshot to this `README.md`
+  - [x] Add a screenshot to this `README.md`
   - [ ] Publish the `devmode` snap in the Snap store edge channel
   - [x] Add install instructions to this `README.md`
   - [ ] Update snap store metadata, icons and screenshots
