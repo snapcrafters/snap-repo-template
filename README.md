@@ -1,3 +1,4 @@
+[![gzdoom](https://snapcraft.io//gzdoom/badge.svg)](https://snapcraft.io/gzdoom)
 <h1 align="center">
   <img src="https://zdoom.org/w/images/2/25/Circle_gzdoom.png" alt="GZDoom">
   <br />
