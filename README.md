@@ -27,18 +27,21 @@ but if you have any recommendation or corrections, please do let me know.
 g4.2 (I am still working on the snap itself, the GZDoom version is 4.2)
 
 ## Installation
-For now, clone this repo and run
+([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
+
+### From the store
+This snap is now in the store, simply run
+
+    $ snap install gzdoom
+	
+### Manually
+Clone this repo and run
 
     $ snapcraft
 
 in the git repo (gzdoom-snap). Then install the produced snap with
 
     $ snap install *.snap --dangerous
-
-When the snapcraft.yaml is ~~perfected~~ stable, I will try to get it
-included in the snapstore, for easy installation.
-
-([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
 ## WADs
 First run the snap once to generate the directory structure. See *Running GZDoom*. Then put your WADs in **~/snap/gzdoom/current/.config/gzdoom**
@@ -69,22 +72,22 @@ See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zd
     - If you have already forked the Snapcrafter template to your account and want to create another snap, you'll need to use GitHub's [Import repository](https://github.com/new/import) feature because you can only fork a repository once.
   - [x] Rename the forked Snapcrafters template repository
   - [x] Update the description of the repository
-  - [ ] Update logos and references to `[Project]` and `[my-snap-name]`
+  - [x] Update logos and references to `[Project]` and `[my-snap-name]`
   - [x] Create a snap that runs in `devmode`
-  - [ ] Register the snap in the store, **using the preferred upstream name**
+  - [x] Register the snap in the store, **using the preferred upstream name**
   - [ ] Add a screenshot to this `README.md`
   - [ ] Publish the `devmode` snap in the Snap store edge channel
   - [x] Add install instructions to this `README.md`
   - [ ] Update snap store metadata, icons and screenshots
   - [x] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
-  - [ ] Publish the confined snap in the Snap store beta channel
-  - [ ] Update the install instructions in this `README.md`
+  - [x] Publish the confined snap in the Snap store beta channel
+  - [x] Update the install instructions in this `README.md`
   - [ ] Post a call for testing on the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [ ] Make a post in the [Snapcraft Forum](https://forum.snapcraft.io) asking for a transfer of the snap name from you to snapcrafters - [link]()
   - [ ] Ask a [Snapcrafters admin](https://github.com/orgs/snapcrafters/people?query=%20role%3Aowner) to fork your repo into github.com/snapcrafters, and configure the repo for automatic publishing into edge on commit
   - [ ] Add the provided Snapcraft build badge to this `README.md`
-  - [ ] Publish the snap in the Snap store stable channel
-  - [ ] Update the install instructions in this `README.md`
+  - [x] Publish the snap in the Snap store stable channel
+  - [x] Update the install instructions in this `README.md`
   - [ ] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [ ] Submit a pull request or patch upstream that adds snap install documentation - [link]()
   - [ ] Submit a pull request or patch upstream that adds the `snapcraft.yaml` and any required assets/launchers - [link]()

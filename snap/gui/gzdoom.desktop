@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=GZDoom
 Exec=gzdoom
-Icon=${SNAP}/meta/gui/snapname.png
+Icon=${SNAP}/meta/gui/gzdoom.png
 Comment=The GZDoom Source Port
 Keywords=doom;gzdoom
 Type=Application
