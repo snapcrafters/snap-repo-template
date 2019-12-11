@@ -82,7 +82,7 @@ The first time you launch the app, it will inform you that no WADs were found, d
 <p align="center">Another scene from  <a href="https://freedoom.github.io/">Freedoom:</a> Phase 1</p>
 
 ## Upstream Project
-<p>All credit naturally goes to the <a href="https://freedoom.github.io/">GZDoom/ZDoom developers</a>.</p>
+<p>All credit naturally goes to the <a href="https://zdoom.org/">GZDoom/ZDoom developers</a>.</p>
 
 ## Licenses
 See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zdoom.org/wiki/License
