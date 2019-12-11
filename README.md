@@ -61,6 +61,14 @@ The first time you launch the app, it will inform you that no WADs were found, d
 * ~~Sound does not seem to be working~~
 * The snap has to be run before the directory structure is set up (for WADs/.ini)
 
+## Screenshots
+<h1 align="center">
+  <img src="screenshot1.png" alt="Screenshot 1 here!">
+  <br />
+</h1>
+<p align="center">The WAD selector</p>
+
+
 ## Licenses
 See https://github.com/coelckers/gzdoom/tree/master/docs/licenses and https://zdoom.org/wiki/License
 
