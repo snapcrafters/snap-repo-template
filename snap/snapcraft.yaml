@@ -1,6 +1,6 @@
 name: gzdoom
 base: core18
-version: 'g4.2'
+version: 'g4.2.4'
 summary: Doom Source Port
 description: |
   Snap build from https://github.com/Hvassaa/gzdoom-snap
@@ -24,7 +24,7 @@ apps:
 parts:
   gzdoom:
     source: https://github.com/coelckers/gzdoom.git
-    source-tag: 'g4.2'
+    source-tag: 'g4.2.4'
     plugin: cmake
     configflags: ["-DCMAKE_BUILD_TYPE=Release", "-DNO_FMOD=ON"]
     build-packages:
@@ -81,4 +81,6 @@ layout:
   /usr/share/games/doom: # to locate the .pk3 files
     bind: $SNAP/share/games/doom
   /usr/share/doom/soundfonts: # to locate the soundfonts
-    bind: $SNAP/usr/share/sounds/sf2 
+    bind: $SNAP/usr/share/sounds/sf2
+  $SNAP_COMMON: # to keep WADs between updates
+    bind: $SNAP/share/games/doom
