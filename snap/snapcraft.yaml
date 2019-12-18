@@ -82,5 +82,3 @@ layout:
     bind: $SNAP/share/games/doom
   /usr/share/doom/soundfonts: # to locate the soundfonts
     bind: $SNAP/usr/share/sounds/sf2
-  /usr/share/doom: # to keep WADs between updates
-    bind: $SNAP_USER_DATA
