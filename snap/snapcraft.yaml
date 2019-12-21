@@ -65,6 +65,7 @@ parts:
       - yad
       - libslang2
       - fluid-soundfont-gm
+      - kdialog
       - libglu1-mesa
     after:
       - desktop-glib-only
