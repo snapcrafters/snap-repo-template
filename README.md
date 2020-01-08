@@ -23,6 +23,7 @@ This is the Doom source port GZDoom, as a snap. It is still a WIP.
 I tried using the newest conventions and so from snapcraft,
 but if you have any recommendation or corrections, please do let me know.
 
+<iframe src="https://snapcraft.io/gzdoom/embedded?button=white&summary=true" frameborder="0" width="100%" height="310px" style="border: 1px solid #CCC; border-radius: 2px;"></iframe>
 
 ## Version
 g4.2.2
