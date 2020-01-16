@@ -106,6 +106,21 @@ function append_dir() {
   fi
 }
 
+# async
+declare -A PIDS
+
+function async_exec() {
+  $@ &
+  PIDS[$!]=$@
+}
+
+function wait_for_async_execs() {
+  for i in ${!PIDS[@]}
+  do
+    wait $i && continue || echo "ERROR: ${PIDS[$i]} exited abnormally with status $?"
+  done
+}
+
 # On Fedora $SNAP is under /var and there is some magic to map it to /snap.
 # # We need to handle that case and reset $SNAP
 SNAP=`echo $SNAP | sed -e "s|/var/lib/snapd||g"`
@@ -163,10 +178,12 @@ append_dir LD_LIBRARY_PATH $WPR/usr/lib/$ARCH/mesa-egl
 [ "$SNAP_ARCH" = "amd64" ] && append_dir LD_LIBRARY_PATH $WPR/usr/lib/i386-linux-gnu/mesa
 [ "$SNAP_ARCH" = "amd64" ] && append_dir LD_LIBRARY_PATH $WPR/usr/lib/i386-linux-gnu/mesa-egl
 
-# Tell libGL where to find the drivers
+# Tell libGL and libva where to find the drivers
 export LIBGL_DRIVERS_PATH=$WPR/usr/lib/$ARCH/dri
 [ "$SNAP_ARCH" = "amd64" ] && append_dir LIBGL_DRIVERS_PATH $WPR/usr/lib/i386-linux-gnu/dri
 append_dir LD_LIBRARY_PATH $LIBGL_DRIVERS_PATH
+export LIBVA_DRIVERS_PATH=$WPR/usr/lib/$ARCH/dri
+[ "$SNAP_ARCH" = "amd64" ] && append_dir LIBVA_DRIVERS_PATH $WPR/usr/lib/i386-linux-gnu/dri
 
 # Workaround in snapd for proprietary nVidia drivers mounts the drivers in
 # /var/lib/snapd/lib/gl that needs to be in LD_LIBRARY_PATH
@@ -177,6 +194,9 @@ append_dir LD_LIBRARY_PATH /var/lib/snapd/lib/gl
 # Pulseaudio export
 append_dir LD_LIBRARY_PATH $WPR/usr/lib/$ARCH/pulseaudio
 [ "$SNAP_ARCH" = "amd64" ] && append_dir LD_LIBRARY_PATH $WPR/usr/lib/i386-linux-gnu/pulseaudio
+
+# Alsa export
+export ALSA_CONFIG_PATH="$WPR/usr/share/alsa/alsa.conf"
 
 # EGL vendor files on glvnd enabled systems
 [ -d /var/lib/snapd/lib/glvnd/egl_vendor.d ] && \
@@ -265,14 +285,17 @@ if [ $needs_update = true ]; then
   # included by the system fontconfig configuration: namely the
   # etc/fonts/conf.d/50-user.conf file.
   mkdir -p $XDG_CONFIG_HOME/fontconfig
-  make_user_fontconfig > $XDG_CONFIG_HOME/fontconfig/fonts.conf
+  async_exec make_user_fontconfig > $XDG_CONFIG_HOME/fontconfig/fonts.conf
 fi
 
 # Gdk-pixbuf loaders
 export GDK_PIXBUF_MODULE_FILE=$XDG_CACHE_HOME/gdk-pixbuf-loaders.cache
 export GDK_PIXBUF_MODULEDIR=$WPR/usr/lib/$ARCH/gdk-pixbuf-2.0/2.10.0/loaders
-if [ -f $WPR/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders ] && [ ! -f "${GDK_PIXBUF_MODULE_FILE}" ]; then
-  $WPR/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $GDK_PIXBUF_MODULE_FILE
+if [ $needs_update = true ]; then
+  rm -f $GDK_PIXBUF_MODULE_FILE
+  if [ -f $WPR/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders ] && [ ! -f "${GDK_PIXBUF_MODULE_FILE}" ]; then
+    async_exec $WPR/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $GDK_PIXBUF_MODULE_FILE
+  fi
 fi
 
 # foobar2000 env
@@ -314,6 +337,8 @@ fi
 
 [ $needs_update = true ] && echo "SNAP_DESKTOP_LAST_REVISION=$SNAP_REVISION" > $SNAP_USER_DATA/.last_revision
 
+wait_for_async_execs
+
 # Switches: use -something instead of /something to avoid confusion with Unix paths
 # Also convert Unix paths to Windows paths.
 declare -a args
@@ -328,10 +353,8 @@ done
 
 if [ "$1" == "winecfg" ] ; then
   wine winecfg
-else
-if [ -z "$1" ] ; then
+elif [ -z "$1" ] ; then
   wine "$progHome/$progBin"
 else
   wine start /unix "$progHome/$progBin" "${args[@]}"
-fi
 fi
