@@ -23,6 +23,9 @@ This is the Doom source port GZDoom, as a snap. It is still a WIP.
 I tried using the newest conventions and so from snapcraft,
 but if you have any recommendation or corrections, please do let me know.
 
+Furthermore, I only have amd64 hardware avaible, so that is what I can test it on.
+If you have other hardware avaible and you have tested it there, please do let me know!
+
 ## Version
 g4.2.2
 
@@ -60,6 +63,7 @@ The first time you launch the app, it will inform you that no WADs were found, d
 ## Problems
 * ~~Sound does not seem to be working~~
 * The snap has to be run before the directory structure is set up (for WADs/.ini)
+* Some problems on KDE (see https://forum.snapcraft.io/t/how-to-integrate-with-kde/14887/4)
 
 ## Screenshots
 <h1 align="center">
