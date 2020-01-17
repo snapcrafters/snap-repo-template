@@ -24,7 +24,7 @@ I tried using the newest conventions and so from snapcraft,
 but if you have any recommendation or corrections, please do let me know.
 
 Furthermore, I only have amd64 hardware avaible, so that is what I can test it on.
-If you have other hardware avaible and you have tested it there, please do let me know!
+If you have other hardware avaible and you have tested it there, let me know as well.
 
 ## Version
 g4.2.2
