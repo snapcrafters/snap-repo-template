@@ -1,6 +1,6 @@
 name: gzdoom
 base: core18
-version: 'g4.2.4'
+version: 'g4.3.2'
 summary: Doom Source Port
 description: |
   Snap build from https://github.com/Hvassaa/gzdoom-snap
@@ -28,7 +28,7 @@ apps:
 parts:
   gzdoom:
     source: https://github.com/coelckers/gzdoom.git
-    source-tag: 'g4.2.4'
+    source-tag: 'g4.3.2'
     plugin: cmake
     configflags: ["-DCMAKE_BUILD_TYPE=Release", "-DNO_FMOD=ON"]
     build-packages:
