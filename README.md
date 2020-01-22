@@ -1,11 +1,12 @@
 [![gzdoom](https://snapcraft.io//gzdoom/badge.svg)](https://snapcraft.io/gzdoom)
+[![Snap Status](https://build.snapcraft.io/badge/Hvassaa/gzdoom-snap.svg)](https://build.snapcraft.io/user/Hvassaa/gzdoom-snap)
 <h1 align="center">
   <img src="https://zdoom.org/w/images/2/25/Circle_gzdoom.png" alt="GZDoom">
   <br />
   GZDoom
 </h1>
 
-[![Snap Status](https://build.snapcraft.io/badge/Hvassaa/gzdoom-snap.svg)](https://build.snapcraft.io/user/Hvassaa/gzdoom-snap)
+
 
 <p align="center"><b>This is a snap for GZDoom</b>, <i> it is not official in any way! </i>
 
