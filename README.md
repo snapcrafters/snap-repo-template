@@ -30,7 +30,7 @@ Furthermore, I only have amd64 hardware avaible, so that is what I can test it o
 If you have other hardware avaible and you have tested it there, let me know as well.
 
 ## Version
-g4.2.2
+g4.3.2
 
 ## Installation
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
@@ -59,7 +59,7 @@ Run it from shell:
 
 (ensure **$ which gzdoom** returns **/snap/bin/gzdoom**)
 
-or simply run the desktop entry, called **gzdoom**.
+or simply run the desktop entry, called **GZdoom**.
 
 The first time you launch the app, it will inform you that no WADs were found, don't worry! Follow the steps in *WADs* to set up your WADs.
 
