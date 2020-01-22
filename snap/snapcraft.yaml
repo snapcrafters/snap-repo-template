@@ -52,6 +52,7 @@ parts:
       - tar
       - libsdl1.2-dev
       - libglew-dev
+      - xcb
     stage-packages:
       - libsdl2-2.0-0
       - libopenal1
