@@ -5,6 +5,8 @@
   GZDoom
 </h1>
 
+[![Snap Status](https://build.snapcraft.io/badge/Hvassaa/gzdoom-snap.svg)](https://build.snapcraft.io/user/Hvassaa/gzdoom-snap)
+
 <p align="center"><b>This is a snap for GZDoom</b>, <i> it is not official in any way! </i>
 
 <!-- Uncomment and modify this when you are provided a build status badge
