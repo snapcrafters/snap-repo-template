@@ -21,7 +21,9 @@ architectures:
 apps:
   gzdoom:
     command: desktop-launch $SNAP/bin/gzdoom
-    extensions: [gnome-3-28]
+    extensions: 
+        - gnome-3-28
+        - kde-neon
     plugs: [desktop, desktop-legacy, unity7, network, opengl, pulseaudio, audio-playback, joystick, x11, wayland, home]
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/pulseaudio:$LD_LIBRARY_PATH
@@ -53,7 +55,9 @@ parts:
       - tar
       - libsdl1.2-dev
       - libglew-dev
-      - xcb
+    build-snaps:
+      - kde-frameworks-5-core18-sdk
+      - kde-frameworks-5-core18
     stage-packages:
       - libsdl2-2.0-0
       - libopenal1
@@ -73,7 +77,8 @@ parts:
       - fluid-soundfont-gm
       - libglu1-mesa
       - kdialog
-      - xcb
+    stage-snaps:
+      - kde-frameworks-5-core18
     after:
       - desktop-glib-only
   desktop-glib-only:
