@@ -21,6 +21,7 @@ architectures:
 apps:
   gzdoom:
     command: desktop-launch $SNAP/bin/gzdoom
+    extensions: [gnome-3-28]
     plugs: [desktop, desktop-legacy, unity7, network, opengl, pulseaudio, audio-playback, joystick, x11, wayland, home]
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/pulseaudio:$LD_LIBRARY_PATH
