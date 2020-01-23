@@ -71,8 +71,6 @@ parts:
       - fluid-soundfont-gm
       - libglu1-mesa
       - kdialog
-    after:
-      - qt5
   qt5:
     source: .
     source-subdir: qt
