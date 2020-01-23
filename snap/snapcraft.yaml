@@ -72,16 +72,7 @@ parts:
       - libglu1-mesa
       - kdialog
     after:
-      - desktop-glib-only
       - qt5
-  desktop-glib-only:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: glib-only
-    plugin: make
-    build-packages:
-      - libglib2.0-dev
-    stage-packages:
-      - libglib2.0-bin
   qt5:
     source: .
     source-subdir: qt
