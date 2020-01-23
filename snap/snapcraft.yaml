@@ -4,7 +4,7 @@ version: 'g4.3.2'
 summary: Doom Source Port
 description: |
   Snap build from https://github.com/Hvassaa/gzdoom-snap
-  To setup WADs, run the app once and put them in ~/snap/gzdoom/current/.config/gzdoom
+  To setup WADs, run the app once and put them in ~/snap/gzdoom/.config/gzdoom/
   ZDoom is a family of enhanced ports of the Doom engine for running on modern operating systems.
   It runs on Windows, Linux, and OS X, and adds new features not found in the games as originally
   published by id Software.
@@ -70,28 +70,16 @@ parts:
       - libslang2
       - fluid-soundfont-gm
       - libglu1-mesa
-      - kdialog
-  qt5:
-    source: .
-    source-subdir: qt
+    after:
+      - desktop-glib-only
+  desktop-glib-only:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
     plugin: make
-    make-parameters: ["FLAVOR=qt5"]
     build-packages:
-      - qtbase5-dev
-      - dpkg-dev
+      - libglib2.0-dev
     stage-packages:
-      - libxkbcommon0
-      - ttf-ubuntu-font-family
-      - dmz-cursor-theme
-      - light-themes
-      - adwaita-icon-theme
-      - gnome-themes-standard
-      - shared-mime-info
-      - libqt5gui5
-      - libgdk-pixbuf2.0-0
-      - libqt5svg5 # for loading icon themes which are svg
-      - try: [appmenu-qt5] # not available on core18
-      - locales-all
+      - libglib2.0-bin
 
 layout:
   /usr/share/games/doom: # to locate the .pk3 files
