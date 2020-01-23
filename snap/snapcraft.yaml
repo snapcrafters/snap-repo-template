@@ -79,6 +79,7 @@ parts:
       - kdialog
     stage-snaps:
       - kde-frameworks-5-core18
+      - gtk-common-themes 
     after:
       - desktop-glib-only
   desktop-glib-only:
