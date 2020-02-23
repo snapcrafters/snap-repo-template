@@ -39,9 +39,8 @@ are working to land snap install documentation and
 the [snapcraft.yaml](https://github.com/snapcrafters/fork-and-rename-me/blob/master/snap/snapcraft.yaml)
 upstream so [Project] can authoritatively publish future releases.
 
-  - [x] Fork the [Snapcrafters template](https://github.com/snapcrafters/fork-and-rename-me) repository to your own GitHub account.
-    - If you have already forked the Snapcrafter template to your account and want to create another snap, you'll need to use GitHub's [Import repository](https://github.com/new/import) feature because you can only fork a repository once.
-  - [ ] Rename the forked Snapcrafters template repository
+  - [x] Click the green "Use this template" button above to create a new repository based on this template
+  - [ ] Give the newly created repository a sensible name, like `godzilla-snap` if you're snapping the Godzilla software
   - [ ] Update the description of the repository
   - [ ] Update logos and references to `[Project]` and `[my-snap-name]`
   - [ ] Create a snap that runs in `devmode`
