@@ -24,10 +24,10 @@ plugs:
     interface: content
     target: $SNAP/wine-runtime
     default-provider: wine-platform-runtime
-  wine-3-stable:
+  wine-5-stable:
     interface: content
     target: $SNAP/wine-platform
-    default-provider: wine-platform-3-stable
+    default-provider: wine-platform-5-stable
   icon-themes:
     interface: content
     target: $SNAP/data-dir/icons
@@ -37,7 +37,7 @@ apps:
   foobar2000:
     command: foobar2000
     desktop: usr/share/applications/foobar2000.desktop
-    plugs: [ wayland, x11, opengl, home, desktop, desktop-legacy, network, pulseaudio, hardware-observe, process-control, cups-control, removable-media, icon-themes, wine-runtime, wine-3-stable ]
+    plugs: [ wayland, x11, opengl, home, desktop, desktop-legacy, network, pulseaudio, hardware-observe, process-control, cups-control, removable-media, icon-themes, wine-runtime, wine-5-stable ]
 
 parts:
   foobar2000:
