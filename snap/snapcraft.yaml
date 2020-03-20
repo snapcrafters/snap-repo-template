@@ -1,6 +1,5 @@
 name: foobar2000
-version: latest
-version-script: cat $SNAPCRAFT_STAGE/version
+adopt-info: foobar2000
 summary: foobar2000 is an advanced freeware audio player.
 description: |
  Features
@@ -48,7 +47,7 @@ parts:
       snapcraftctl build
       set -ex
       ver=$(wget http://www.foobar2000.org/download -q -S -O - 2>&1 | grep foobar2000_v | awk '{print $4}'|sed '2,3d;s|v||;s|</a><br||;s|</a>||')
-      echo $ver > $SNAPCRAFT_STAGE/version
+      snapcraftctl set-version $ver
       ./dl_f2k
     stage:
       - bin
