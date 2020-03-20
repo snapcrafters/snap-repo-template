@@ -47,7 +47,7 @@ parts:
       snapcraftctl build
       set -ex
       ver=$(wget http://www.foobar2000.org/download -q -S -O - 2>&1 | grep foobar2000_v | awk '{print $4}'|sed '2,3d;s|v||;s|</a><br||;s|</a>||')
-      snapcraftctl set-version "$ver"
+      snapcraftctl set-version "$(echo $ver)"
       ./dl_f2k
     stage:
       - bin
