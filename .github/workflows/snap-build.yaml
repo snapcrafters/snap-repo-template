@@ -1,0 +1,31 @@
+name: snap-build
+on:
+  push:
+    branches:
+      - master
+      - release/**
+  pull_request:
+
+jobs:
+  snap-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+
+      - name: Build snap
+        id: build
+        uses: snapcore/action-build@v1
+
+      ### Enable this step if you want to publish builds of master to
+      ### the edge channel of your project.  You will neeed to add a
+      ### secret holding store credentials as described here:
+      ###     https://github.com/snapcore/action-publish
+      #
+      #- name: Publish to edge channel
+      #  if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      #  uses: snapcore/action-publish@v1
+      #  with:
+      #    store_login: ${{ secrets.STORE_LOGIN }}
+      #    snap: ${{ steps.build.outputs.snap }}
+      #    release: edge
