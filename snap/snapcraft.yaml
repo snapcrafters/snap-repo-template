@@ -24,6 +24,7 @@ apps:
     plugs: [desktop, desktop-legacy, unity7, network, opengl, pulseaudio, audio-playback, joystick, x11, wayland, home]
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/pulseaudio:$LD_LIBRARY_PATH
+      KDE_FULL_SESSION: false
 
 parts:
   gzdoom:
@@ -70,6 +71,9 @@ parts:
       - libslang2
       - fluid-soundfont-gm
       - libglu1-mesa
+      - gxmessage
+      - kdialog
+      - fluidsynth
     after:
       - desktop-glib-only
   desktop-glib-only:
