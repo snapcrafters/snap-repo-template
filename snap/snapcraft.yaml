@@ -24,7 +24,7 @@ apps:
     plugs: [desktop, desktop-legacy, unity7, network, opengl, pulseaudio, audio-playback, joystick, x11, wayland, home]
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/pulseaudio:$LD_LIBRARY_PATH
-      KDE_FULL_SESSION: false
+      KDE_FULL_SESSION: "false"
 
 parts:
   gzdoom:
