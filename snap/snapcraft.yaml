@@ -20,9 +20,7 @@ architectures:
 
 apps:
   gzdoom:
-    #command: desktop-launch $SNAP/bin/gzdoom
     command: bin/desktop-launch $SNAP/bin/gzdoom
-    #command: bin/desktop-launch $SNAP/usr/bin/gzdoom
     plugs: [desktop, desktop-legacy, unity7, network, opengl, pulseaudio, audio-playback, joystick, x11, wayland, home]
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/pulseaudio:$LD_LIBRARY_PATH
@@ -39,8 +37,6 @@ parts:
       - -DZMUSIC_INCLUDE_DIR=$SNAPCRAFT_STAGE/usr/include
       - -DZMUSIC_LIBRARIES=$SNAPCRAFT_STAGE/usr/lib/x86_64-linux-gnu/libzmusic.so
       - -DCMAKE_INSTALL_PREFIX=/usr
-        #- -DCMAKE_INSTALL_PREFIX=$SNAPCRAFT_PART_INSTALL/bin
-      #- -DZMUSIC_LIBRARIES=$SNAPCRAFT_PRIME/lib/libzmusic.so
     build-packages:
       - g++
       - make
@@ -84,11 +80,15 @@ parts:
       - kdialog
       - fluidsynth
     organize:
-     #$SNAPCRAFT_PART_BUILD/gzdoom: /bin/
-     #$SNAPCRAFT_PART_BUILD/*pk3: /bin/
-     #$SNAPCRAFT_PART_BUILD/fm_banks: /bin/
-     #$SNAPCRAFT_PART_BUILD/soundfonts: /bin/
-      $SNAPCRAFT_PART_BUILD/*: /bin/
+      $SNAPCRAFT_BUILD/brightmaps.pk3: /bin/
+      $SNAPCRAFT_BUILD/fm_banks: /bin/
+      $SNAPCRAFT_BUILD/game_support.pk3: /bin/
+      $SNAPCRAFT_BUILD/game_widescreen_gfx.pk3: /bin/
+      $SNAPCRAFT_BUILD/gzdoom: /bin/
+      $SNAPCRAFT_BUILD/gzdoom.pk3: /bin/
+      $SNAPCRAFT_BUILD/libzmusic.so.1: /bin/
+      $SNAPCRAFT_BUILD/lights.pk3: /bin/
+      $SNAPCRAFT_BUILD/soundfonts: /bin/
     after:
       - desktop-glib-only
       - zmusic
@@ -115,22 +115,3 @@ parts:
     organize:
       $SNAPCRAFT_PART_SRC/include/zmusic.h: $SNAPCRAFT_STAGE/include
       $SNAPCRAFT_PART_INSTALL/usr/local/share/games/doom: /bin/
-      #$SNAPCRAFT_PART_BUILD/source/libzmusic.so: /lib/
-
-      #layout:
-      #/usr/local/share/games/doom: # to locate the .pk3 files
-      #bind: $SNAP/bin
-      #/usr/share/doom/soundfonts: # to locate the soundfonts
-      #bind: $SNAP/usr/share/sounds/sf2
-
-
-
-
-        #/usr/local/share/games/doom: # to locate the .pk3 files
-        #bind: $SNAP/bin
-        #/usr/share/doom/soundfonts: # to locate the soundfonts
-        #bind: $SNAP/bin
-    #/usr/share/doom/soundfonts: # to locate the soundfonts
-    #bind: $SNAP/usr/share/sounds/sf2
-  #/usr/share/games/doom: # to locate the .pk3 files
-   #bind: $SNAP/local/share/games/doom
