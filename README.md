@@ -30,7 +30,7 @@ Furthermore, I only have amd64 hardware avaible, so that is what I can test it o
 If you have other hardware avaible and you have tested it there, let me know as well.
 
 ## Version
-g4.3.2
+4.6
 
 ## Installation
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
@@ -66,7 +66,7 @@ The first time you launch the app, it will inform you that no WADs were found, d
 ## Problems
 * ~~Sound does not seem to be working~~
 * The snap has to be run before the directory structure is set up (for WADs/.ini)
-* Some problems on KDE (see https://forum.snapcraft.io/t/how-to-integrate-with-kde/14887/4)
+* ~~Some problems on KDE (see https://forum.snapcraft.io/t/how-to-integrate-with-kde/14887/4)~~ (tested under plasma 5.21.4 on ubuntu 21.04)
 
 ## Screenshots
 <h1 align="center">
