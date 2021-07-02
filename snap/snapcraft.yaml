@@ -80,7 +80,15 @@ parts:
       - kdialog
       - fluidsynth
     organize:
-      $SNAPCRAFT_PART_BUILD/*: /bin/
+      $SNAPCRAFT_PART_BUILD/brightmaps.pk3: /bin/
+      $SNAPCRAFT_PART_BUILD/fm_banks: /bin/
+      $SNAPCRAFT_PART_BUILD/game_support.pk3: /bin/
+      $SNAPCRAFT_PART_BUILD/game_widescreen_gfx.pk3: /bin/
+      $SNAPCRAFT_PART_BUILD/gzdoom: /bin/
+      $SNAPCRAFT_PART_BUILD/gzdoom.pk3: /bin/
+      $SNAPCRAFT_PART_BUILD/libzmusic.so.1: /bin/
+      $SNAPCRAFT_PART_BUILD/lights.pk3: /bin/
+      $SNAPCRAFT_PART_BUILD/soundfonts: /bin/
     after:
       - desktop-glib-only
       - zmusic
