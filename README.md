@@ -22,6 +22,7 @@
 
 # GZDoom snap
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/gzdoom)
+    
 This is the Doom source port GZDoom, as a snap. It is still a WIP.
 
 I tried using the newest conventions and so from snapcraft,
