@@ -30,6 +30,9 @@ parts:
   gzdoom:
     source: https://github.com/coelckers/gzdoom.git
     source-tag: '4.6'
+    override-pull: |
+      snapcraftctl pull
+      patch $SNAPCRAFT_PART_SRC/src/d_iwad.cpp < $SNAPCRAFT_PROJECT_DIR/snap/local/location.patch
     plugin: cmake
     cmake-parameters: 
       - -DCMAKE_BUILD_TYPE=Release
