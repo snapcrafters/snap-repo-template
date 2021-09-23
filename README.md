@@ -69,7 +69,7 @@ Snapcrafters ([join us](https://forum.snapcraft.io/t/snapcrafters-reboot/24625))
     - [ ] Add upstream contact information to the `README.md`
     - If upstream accept the PR:
       - [ ] Request upstream create a Snap store account
-      - [ ] Add upstream
+      - [ ] Add upstream account as a collaborator on the snap
       - [ ] Contact the Snap Advocacy team to request the snap be transferred to upstream
 
 If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft.io).
