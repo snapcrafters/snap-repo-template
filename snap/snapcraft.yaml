@@ -7,6 +7,7 @@ description: |
   we live in tweetspace and your description wants to look good in the snap
   store.
 
+base: core22
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 parts:
