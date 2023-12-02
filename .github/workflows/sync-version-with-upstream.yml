@@ -1,0 +1,29 @@
+name: Update
+
+on:
+  # Runs at 10:00 UTC every day
+  schedule:
+    - cron:  '0 10 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: 🔄 Sync version with upstream
+    environment: "Candidate Branch"
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔄 Sync version with upstream
+        uses: snapcrafters/ci/sync-version@main
+        with:
+          token: ${{ secrets.SNAPCRAFTERS_BOT_COMMIT }}
+          update-script: |
+            echo "Change me!"
+            # This should be a script that looks for a new upstream version, and modifies the
+            # snapcraft.yaml accordingly. For examples, take a look at:
+            # - https://github.com/snapcrafters/mattermost-desktop/blob/candidate/.github/workflows/sync-version-with-upstream.yml
+            # - https://github.com/snapcrafters/discord/blob/candidate/.github/workflows/sync-version-with-upstream.yml
